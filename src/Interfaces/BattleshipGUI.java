@@ -1,6 +1,5 @@
 package Interfaces;
 import DataManagement.GameData;
-import Interfaces.MainGUI;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -17,11 +16,13 @@ public class BattleshipGUI extends JFrame
     JButton[][] myBoard;
     JButton[][] opponentBoard;
     int fieldSize;
+    int gameType;  // 1 = offline game, 2 = online game as server, 3 = online game as client
     GameData gameData;
 
-    public BattleshipGUI(int size, int[] quantityOfShips) {
+    public BattleshipGUI(int size, int[] quantityOfShips, int gameType) {
 
-        gameData = new GameData();
+        this.gameType = gameType;
+        this.gameData = new GameData();
         // Feldgröße wird mit der Variable size initialisiert
         this.fieldSize = size;
         // Spielerfeld und gegnerisches Feld sind fieldSize x fieldSize groß
@@ -115,27 +116,14 @@ public class BattleshipGUI extends JFrame
 
 
         // Schiffe zum buttonPanel2 hinzufügen
-        if(6 < fieldSize && fieldSize < 10)
-        {
-            addCarrierButton(buttonPanel2,gbc2);
-            addBattleshipButton(buttonPanel2,gbc2);
-            addCruiserButton(buttonPanel2,gbc2);
-            addSubmarineButton(buttonPanel2,gbc2);
-            addDestroyerButton(buttonPanel2,gbc2);
-        }
-        if(10 <= fieldSize && fieldSize < 20)
-        {
-            addCarrierButton(buttonPanel2,gbc2);
-            addBattleshipButton(buttonPanel2,gbc2);
-            addCruiserButton(buttonPanel2,gbc2);
-            addSubmarineButton(buttonPanel2,gbc2);
-            addDestroyerButton(buttonPanel2,gbc2);
-            addCarrierButton(buttonPanel2,gbc2);
-            addBattleshipButton(buttonPanel2,gbc2);
-            addCruiserButton(buttonPanel2,gbc2);
-            addSubmarineButton(buttonPanel2,gbc2);
-            addDestroyerButton(buttonPanel2,gbc2);
-        }
+
+        addCarrierButton(buttonPanel2,gbc2);
+        addBattleshipButton(buttonPanel2,gbc2);
+        addCruiserButton(buttonPanel2,gbc2);
+        addSubmarineButton(buttonPanel2,gbc2);
+        addDestroyerButton(buttonPanel2,gbc2);
+
+
         // Das buttonPanel2 zum bottomPanel hinzufügen
         bottomPanel.add(buttonPanel2, BorderLayout.SOUTH);
 

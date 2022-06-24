@@ -110,10 +110,10 @@ public class PrepareBattleshipGUI {
                 {
                     carrier.setMaximum(0);
                     carrier.setMinimum(0);
-                    destroyer.setMaximum(1);
+                    destroyer.setMaximum(11);
                     destroyer.setMinimum(1);
                 }
-                if(fieldSize.getValue() > 20)
+                if(fieldSize.getValue() >= 20)
                 {
                     carrier.setMinimum(1);
                     carrier.setMaximum(9);
@@ -161,6 +161,7 @@ public class PrepareBattleshipGUI {
 
         // set the size of frame
         f.setSize(300, 420);
+        f.setLocation(500,190);
 
         f.setVisible(true);
 
@@ -168,7 +169,6 @@ public class PrepareBattleshipGUI {
 
     void checkShipCount()
     {
-        f.setVisible(false);
         int ships = carrier.getValue()*6 + battleship.getValue()*5 + cruiser.getValue()*4 +
                 submarine.getValue()*3 + destroyer.getValue()*2;
         int field = fieldSize.getValue() * fieldSize.getValue();
@@ -180,7 +180,7 @@ public class PrepareBattleshipGUI {
         {
             f.setVisible(false);
             int[] s = {carrier.getValue(), battleship.getValue(), cruiser.getValue(), submarine.getValue(), destroyer.getValue()};
-            new BattleshipGUI(fieldSize.getValue(), s);
+            new BattleshipGUI(fieldSize.getValue(), s, 1);
         }
 
     }

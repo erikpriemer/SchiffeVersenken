@@ -1,13 +1,15 @@
 import Interfaces.BattleshipGUI;
+import Interfaces.StartingGUI;
 import KI.ShipPlacementKI;
+import Interfaces.PrepareBattleshipGUI;
 
 import java.util.ArrayList;
 
 public class Main {
 
     public static void main(String[] args) {
-        // Interfaces.BattleshipGUI mit der Spielfeldgröße 11
-        new BattleshipGUI(11);
+
+        new StartingGUI();
 
         ShipPlacementKI ki = new ShipPlacementKI(11);
         ArrayList<int[]> i = ki.generateShips(2, 2, 2, 2, 2);

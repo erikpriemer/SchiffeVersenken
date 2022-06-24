@@ -1,4 +1,6 @@
 package Interfaces;
+import DataManagement.GameData;
+import Interfaces.MainGUI;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -15,8 +17,11 @@ public class BattleshipGUI extends JFrame
     JButton[][] myBoard;
     JButton[][] opponentBoard;
     int fieldSize;
+    GameData gameData;
 
-    public BattleshipGUI(int size) {
+    public BattleshipGUI(int size, int[] quantityOfShips) {
+
+        gameData = new GameData();
         // Feldgröße wird mit der Variable size initialisiert
         this.fieldSize = size;
         // Spielerfeld und gegnerisches Feld sind fieldSize x fieldSize groß

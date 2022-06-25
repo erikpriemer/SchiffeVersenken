@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class ShipPlacementKI {
 
     ShipList shipPlacement;
-    ArrayList<int[]> checkList;
+    ArrayList<Point> checkList;
     int fieldSize;
 
     public ShipPlacementKI(int size)
@@ -55,19 +55,33 @@ public class ShipPlacementKI {
             int yMax = fieldSize;  // Maximaler y-Wert, den ein Schiff annehmen darf
             int x = rand.nextInt(xMax);  // generiere einen x-Wert
             int y = rand.nextInt(yMax);  // generiere einen y-Wert
-            ArrayList<int[]> tempCheckList = new ArrayList<>();  // erstelle temporäre ArrayList zum speichern des Schiffes
+            ArrayList<Point> tempCheckList = new ArrayList<>();  // erstelle temporäre ArrayList zum speichern des Schiffes
+            boolean breaks = false;  // für den Fall, dass sich ein Schiff überschneidet, wird der Wert true gesetzt
 
+            for (int i = 0; i < length; i++) {  //gehe das Komplette Schiff durch und...
 
-            for (int i = 0; i < length; i++) {
-                if(checkList.contains(new int[]{x + i, y}))
+                for(int j = 0; j < checkList.size(); j++)
                 {
-                    break;  // falls das Schiff ein schon generiertes Schiff schneidet, so berechne neu
+                    if(checkList.get(j).getX() == x+i && checkList.get(j).getY() == y)
+                    {
+                        breaks = true;
+                        break;  // falls das Schiff ein schon generiertes Schiff schneidet, so berechne neu
+                    }
                 }
-                tempCheckList.add(new int[]{x + i, y});  // falls die Koordinate des neu generierten Schiffes noch nicht
-                                                        // besetzt ist, so speichere den Wert
+                if(breaks)
+                {
+                    break;
+                }
+                tempCheckList.add(new Point(x + i, y));  // falls die Koordinate des neu generierten Schiffes noch nicht
+                // besetzt ist, so speichere den Wert
             }
 
-            // Füge das Schiff in die SchipList zur passenden Liste hinzu
+            if(breaks) // falls sich Schiffe überschneiden, so fange die while-Schleife wieder von vorne an
+            {
+                continue;
+            }
+
+            // Füge das Schiff in die ShipList zur passenden Liste hinzu
             if(length == 6)
             {
                 shipPlacement.addCarrier(new Point(x, y));

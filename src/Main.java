@@ -1,3 +1,5 @@
+import DataManagement.Point;
+import DataManagement.ShipList;
 import Interfaces.StartingGUI;
 import KI.ShipPlacementKI;
 import Database.ScoreHandler;
@@ -15,16 +17,42 @@ public class Main {
 
 
         // Tests
-        /*
+
         ShipPlacementKI ki = new ShipPlacementKI(11);
-        ArrayList<int[]> i = ki.generateShips(2, 2, 2, 2, 2);
-        for(int y = 0; y < i.size(); y++)
+        ShipList i = ki.generateShips(2, 2, 2, 2, 2);
+        List<Point> a = i.getCarrier();
+        List<Point> b = i.getBattleship();
+        List<Point> c = i.getCruiser();
+        List<Point> d = i.getSubmarine();
+        List<Point> e = i.getDestroyer();
+
+        for(int j = 0; j< a.size(); j++)
         {
-            System.out.println(i.get(y)[0]);
-            System.out.println(i.get(y)[1]);
-            System.out.println("---");
+            System.out.println(a.get(j).getX() + " " + a.get(j).getY());
         }
 
+        for(int j = 0; j< b.size(); j++)
+        {
+            System.out.println(b.get(j).getX() + " " + b.get(j).getY());
+        }
+
+        for(int j = 0; j< c.size(); j++)
+        {
+            System.out.println(c.get(j).getX() + " "+ c.get(j).getY());
+        }
+
+        for(int j = 0; j< d.size(); j++)
+        {
+            System.out.println(d.get(j).getX() + " "+ d.get(j).getY());
+        }
+
+        for(int j = 0; j< e.size(); j++)
+        {
+            System.out.println(e.get(j).getX() + " "+ e.get(j).getY());
+        }
+
+
+        /*
         ScoreHandler s = new ScoreHandler();
         GameData g = new GameData();
         g.setTurn(2);
@@ -34,6 +62,8 @@ public class Main {
         GameData v = s.deserialization();
         int k = v.getTurn();
         System.out.println(k);
+
          */
+
     }
 }

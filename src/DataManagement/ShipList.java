@@ -32,7 +32,7 @@ public class ShipList {
         carrier.add(i);
     }
 
-    List<Point> getCarrier()
+    public List<Point> getCarrier()
     {
         return carrier;
     }
@@ -42,7 +42,7 @@ public class ShipList {
         battleship.add(i);
     }
 
-    List<Point> getBattleship()
+    public List<Point> getBattleship()
     {
         return battleship;
     }
@@ -52,7 +52,7 @@ public class ShipList {
         cruiser.add(i);
     }
 
-    List<Point> getCruiser()
+    public List<Point> getCruiser()
     {
         return cruiser;
     }
@@ -62,7 +62,7 @@ public class ShipList {
         submarine.add(i);
     }
 
-    List<Point> getSubmarine()
+    public List<Point> getSubmarine()
     {
         return submarine;
     }
@@ -72,7 +72,7 @@ public class ShipList {
         destroyer.add(i);
     }
 
-    List<Point> getDestroyer()
+    public List<Point> getDestroyer()
     {
         return destroyer;
     }

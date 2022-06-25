@@ -1,6 +1,7 @@
 package Interfaces;
 import DataManagement.GameData;
 import DataManagement.Point;
+import KI.ShipPlacementKI;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -19,15 +20,25 @@ public class BattleshipGUI extends JFrame
     int fieldSize;  // TODO fieldsize in gameData packen + alle fieldSize aufrufe zu gameData.getSize umwandeln
     GameData gameData;
     Point myFieldClicked;
+    Point opponentFieldClicked;
     JFrame battleshipFrame;
+    ShipPlacementKI placementKI;
 
     public BattleshipGUI(int size, int[] quantityOfShips, int gameType) {
 
         // Daten in GameData schreiben
         myFieldClicked = new Point(0, 0);
+        opponentFieldClicked = new Point(0, 0);
         this.gameData = new GameData(quantityOfShips);
         gameData.setGameType(gameType);
         gameData.setSize(size);
+
+        // KI starkten
+        if(gameData.getGameType() == 1)
+        {
+            this.placementKI = new ShipPlacementKI(gameData.getSize());
+            gameData.setOpponentShips(placementKI.generateShips(quantityOfShips[0], quantityOfShips[1], quantityOfShips[2], quantityOfShips[3], quantityOfShips[4]));
+        }
 
         // Feldgröße wird mit der Variable size initialisiert
         this.fieldSize = size;
@@ -90,6 +101,9 @@ public class BattleshipGUI extends JFrame
                 opponentBoard[i][j] = new JButton();
                 opponentBoard[i][j].setBorder(createBorder(Color.BLACK, 5, 15, 5, 15));
                 opponentBoard[i][j].setOpaque(true);
+                int finalI = i;
+                int finalJ = j;
+                opponentBoard[i][j].addActionListener(e -> {opponentFieldClicked = new Point(finalI, finalJ);});
                 setImageIcon("Resources/water.png", opponentBoard[i][j], calcSize(), calcSize());
                 board2.add(opponentBoard[i][j]);
             }
@@ -106,6 +120,7 @@ public class BattleshipGUI extends JFrame
         JButton shootButton = new JButton("Shoot");
         shootButton.setPreferredSize(new Dimension(100, 50));
         shootButton.setForeground(Color.gray);
+        shootButton.addActionListener(e -> {shoot();});
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -219,12 +234,17 @@ public class BattleshipGUI extends JFrame
         
         //Test der Funktionen
         /*
-        addCarrier(6, 0);
-        addBattleship(3, 5);
-        addCruiser(8, 2);
-        addSubmarine(8, 7);
-        addDestroyer(1, 1);
-        colorHitMyShip(6, 1);
+        addCarrier(3, 9);
+        addCarrier(3, 4);
+        addBattleship(5, 6);
+        addBattleship(5, 2);
+        addCruiser(4, 10);
+        addCruiser(5, 0);
+        addSubmarine(2, 1);
+        addSubmarine(1, 5);
+        addDestroyer(7, 8);
+        addDestroyer(2, 8);
+
 
         colorMissOpponentShip(6, 8);
         colorMissOpponentShip(3, 5);
@@ -234,6 +254,7 @@ public class BattleshipGUI extends JFrame
         colorHitOpponentShip(8, 4);
 
          */
+
     }
 
     //Ab hier werden alle Buttons für die Schiffe erstellt-----------------------------------------------
@@ -486,5 +507,26 @@ public class BattleshipGUI extends JFrame
     private int calcSize()
     {
         return 600/fieldSize;
+    }
+
+    public void shoot()
+    {
+        if(gameData.checkIffAllShipsArePlaced())
+        {
+            if(gameData.checkIfHit(opponentFieldClicked))
+            {
+                gameData.addOpponentShipHit(opponentFieldClicked);
+                colorHitOpponentShip(opponentFieldClicked.getX(), opponentFieldClicked.getY());
+            }
+            else
+            {
+                gameData.addOpponentShipsMissed(opponentFieldClicked);
+                colorMissOpponentShip(opponentFieldClicked.getX(), opponentFieldClicked.getY());
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(battleshipFrame, "Not all ships are set yes!");
+        }
     }
 }

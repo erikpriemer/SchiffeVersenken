@@ -56,6 +56,11 @@ public class GameData implements Serializable {
         myShips.addDestroyer(ship);
     }
 
+    public void setOpponentShips(ShipList ships)
+    {
+        opponentShips = ships;
+    }
+
 
 
     public void addOpponentCarrier(Point ship)
@@ -169,5 +174,64 @@ public class GameData implements Serializable {
                 this.shipsPlaced[2] == this.shipsNeeded[2] &&
                 this.shipsPlaced[3] == this.shipsNeeded[3] &&
                 this.shipsPlaced[4] == this.shipsNeeded[4];
+    }
+
+    public boolean checkIfHit(Point p)
+    {
+        for(int i = 0; i < opponentShips.getCarrier().size(); i++)
+        {
+            for(int j = 0; j < 6; j++)
+            {
+                if(opponentShips.getCarrier().get(i).getX() == p.getX() && opponentShips.getCarrier().get(i).getX() + j == p.getY())
+                {
+                    return true;
+                }
+            }
+        }
+
+        for(int i = 0; i < opponentShips.getBattleship().size(); i++)
+        {
+            for(int j = 0; j < 5; j++)
+            {
+                if(opponentShips.getBattleship().get(i).getX() == p.getX() && opponentShips.getBattleship().get(i).getX() + j == p.getY())
+                {
+                    return true;
+                }
+            }
+        }
+
+        for(int i = 0; i < opponentShips.getCruiser().size(); i++)
+        {
+            for(int j = 0; j < 4; j++)
+            {
+                if(opponentShips.getCruiser().get(i).getX() == p.getX() && opponentShips.getCruiser().get(i).getX() + j == p.getY())
+                {
+                    return true;
+                }
+            }
+        }
+
+        for(int i = 0; i < opponentShips.getSubmarine().size(); i++)
+        {
+            for(int j = 0; j < 3; j++)
+            {
+                if(opponentShips.getSubmarine().get(i).getX() == p.getX() && opponentShips.getSubmarine().get(i).getX() + j == p.getY())
+                {
+                    return true;
+                }
+            }
+        }
+
+        for(int i = 0; i < opponentShips.getDestroyer().size(); i++)
+        {
+            for(int j = 0; j < 2; j++)
+            {
+                if(opponentShips.getDestroyer().get(i).getX() == p.getX() && opponentShips.getDestroyer().get(i).getX() + j == p.getY())
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

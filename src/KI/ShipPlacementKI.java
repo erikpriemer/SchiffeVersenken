@@ -1,19 +1,25 @@
 package KI;
+
+import DataManagement.ShipList;
+import DataManagement.Point;
 import java.util.Random;
 import java.util.ArrayList;
 
 public class ShipPlacementKI {
 
-    ArrayList<int[]> shipPlacement = new ArrayList<>();
-    ArrayList<int[]> checkList = new ArrayList<>();
+    ShipList shipPlacement;
+    ArrayList<int[]> checkList;
     int fieldSize;
 
     public ShipPlacementKI(int size)
     {
-        fieldSize = size;
+        this.fieldSize = size;
+        shipPlacement = new ShipList();
+        checkList = new ArrayList<>();
+
     }
 
-    public ArrayList generateShips(int carrier, int battleship, int cruiser, int submarine, int destroyer)
+    public ShipList generateShips(int carrier, int battleship, int cruiser, int submarine, int destroyer)
     {
         for(int i = 1; i <= carrier; i++)
         {
@@ -55,12 +61,39 @@ public class ShipPlacementKI {
             for (int i = 0; i < length; i++) {
                 if(checkList.contains(new int[]{x + i, y}))
                 {
-                    continue;  // falls das Schiff ein schon generiertes Schiff schneidet, so berechne neu
+                    break;  // falls das Schiff ein schon generiertes Schiff schneidet, so berechne neu
                 }
                 tempCheckList.add(new int[]{x + i, y});  // falls die Koordinate des neu generierten Schiffes noch nicht
                                                         // besetzt ist, so speichere den Wert
             }
-            shipPlacement.add(new int[]{x, y});  // falls eine leere Stelle für das neue Schiff gefunden wurde, so speichere den Startwert des Schiffes ab
+
+            // Füge das Schiff in die SchipList zur passenden Liste hinzu
+            if(length == 6)
+            {
+                shipPlacement.addCarrier(new Point(x, y));
+            }
+
+            if(length == 5)
+            {
+                shipPlacement.addBattleship(new Point(x, y));
+            }
+
+            if(length == 4)
+            {
+                shipPlacement.addCruiser(new Point(x, y));
+            }
+
+            if(length == 3)
+            {
+                shipPlacement.addSubmarine(new Point(x, y));
+            }
+
+            if(length == 2)
+            {
+                shipPlacement.addDestroyer(new Point(x, y));
+            }
+
+
             checkList.addAll(tempCheckList);  // speichere alle Koordinaten des neu generierten Schiffes in die checkListe ab
             break;
         }

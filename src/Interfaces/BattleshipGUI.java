@@ -16,15 +16,18 @@ public class BattleshipGUI extends JFrame
     JButton[][] myBoard;
     JButton[][] opponentBoard;
     int fieldSize;
-    int gameType;  // 1 = offline game, 2 = online game as server, 3 = online game as client
     GameData gameData;
 
     public BattleshipGUI(int size, int[] quantityOfShips, int gameType) {
 
-        this.gameType = gameType;
+        // Daten in GameData schreiben
         this.gameData = new GameData();
+        gameData.setGameType(gameType);
+        gameData.setSize(size);
+
         // Feldgröße wird mit der Variable size initialisiert
         this.fieldSize = size;
+
         // Spielerfeld und gegnerisches Feld sind fieldSize x fieldSize groß
         myBoard = new JButton[fieldSize][fieldSize];
         opponentBoard = new JButton[fieldSize][fieldSize];

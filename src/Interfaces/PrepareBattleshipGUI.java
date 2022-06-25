@@ -153,9 +153,9 @@ public class PrepareBattleshipGUI {
 
         // set the text of label
         lfieldSize.setText("Feldgröße");
-        lcarrier.setText("Carrier");
+        lcarrier.setText("Carrier    ");
         lbattleship.setText("Battleship");
-        lcruiser.setText("Cruiser");
+        lcruiser.setText("Cruiser    ");
         lsubmarine.setText("Submarine");
         ldestroyer.setText("Destroyer");
 

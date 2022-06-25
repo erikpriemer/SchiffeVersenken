@@ -17,7 +17,7 @@ public class ScoreHandler {
         objectOutputStream = null;
         fileOutputStream = null;
         fileInputStream = null;
-        f = new File("score.ser");
+        f = new File("Database/score.ser");
     }
 
     public void serialization(GameData data) throws IOException { //TODO fix NotSerializableException problem

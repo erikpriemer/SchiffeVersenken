@@ -1,5 +1,6 @@
 package Interfaces;
 import DataManagement.GameData;
+import DataManagement.Point;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -15,13 +16,16 @@ public class BattleshipGUI extends JFrame
     // Spielerfeld und gegnerisches Feld bestehend aus JButtons
     JButton[][] myBoard;
     JButton[][] opponentBoard;
-    int fieldSize;
+    int fieldSize;  // TODO fieldsize in gameData packen + alle fieldSize aufrufe zu gameData.getSize umwandeln
     GameData gameData;
+    Point myFieldClicked;
+    JFrame battleshipFrame;
 
     public BattleshipGUI(int size, int[] quantityOfShips, int gameType) {
 
         // Daten in GameData schreiben
-        this.gameData = new GameData();
+        myFieldClicked = new Point(0, 0);
+        this.gameData = new GameData(quantityOfShips);
         gameData.setGameType(gameType);
         gameData.setSize(size);
 
@@ -64,6 +68,9 @@ public class BattleshipGUI extends JFrame
                 myBoard[i][j] = new JButton();
                 myBoard[i][j].setBorder(createBorder(Color.BLACK, 5, 15, 5, 15));
                 myBoard[i][j].setOpaque(true);
+                int finalI = i;
+                int finalJ = j;
+                myBoard[i][j].addActionListener(e -> {myFieldClicked = new Point(finalI, finalJ);});
                 setImageIcon("Resources/water.png", myBoard[i][j], calcSize(), calcSize());
                 board1.add(myBoard[i][j]);
             }
@@ -194,7 +201,7 @@ public class BattleshipGUI extends JFrame
 
 
         // JFrame erstellen
-        JFrame battleshipFrame = new JFrame("Battleship");
+        battleshipFrame = new JFrame("Battleship");
         battleshipFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // Verwendet Border Layout
         battleshipFrame.setLayout(new BorderLayout());
@@ -211,6 +218,7 @@ public class BattleshipGUI extends JFrame
 
         
         //Test der Funktionen
+        /*
         addCarrier(6, 0);
         addBattleship(3, 5);
         addCruiser(8, 2);
@@ -224,6 +232,8 @@ public class BattleshipGUI extends JFrame
         colorHitOpponentShip(8, 2);
         colorHitOpponentShip(8, 3);
         colorHitOpponentShip(8, 4);
+
+         */
     }
 
     //Ab hier werden alle Buttons für die Schiffe erstellt-----------------------------------------------
@@ -236,6 +246,7 @@ public class BattleshipGUI extends JFrame
         ship1.setOpaque(true);
         buttonPanel.add(ship1, gbc2);
         setImageIcon("Resources/fullship6.png", ship1, 320, 70);
+        ship1.addActionListener(e -> {addCarrier(myFieldClicked.getX(), myFieldClicked.getY());});
     }
 
     private void addBattleshipButton(JPanel buttonPanel, GridBagConstraints gbc2)
@@ -246,6 +257,8 @@ public class BattleshipGUI extends JFrame
         ship1.setOpaque(true);
         buttonPanel.add(ship1, gbc2);
         setImageIcon("Resources/fullship5.png", ship1, 270, 70);
+        ship1.addActionListener(e -> {addBattleship(myFieldClicked.getX(), myFieldClicked.getY());});
+
     }
 
     private void addCruiserButton(JPanel buttonPanel, GridBagConstraints gbc2)
@@ -256,6 +269,8 @@ public class BattleshipGUI extends JFrame
         ship1.setOpaque(true);
         buttonPanel.add(ship1, gbc2);
         setImageIcon("Resources/fullship4.png", ship1, 220, 70);
+        ship1.addActionListener(e -> {addCruiser(myFieldClicked.getX(), myFieldClicked.getY());});
+
     }
 
     private void addSubmarineButton(JPanel buttonPanel, GridBagConstraints gbc2)
@@ -266,6 +281,8 @@ public class BattleshipGUI extends JFrame
         ship1.setOpaque(true);
         buttonPanel.add(ship1, gbc2);
         setImageIcon("Resources/fullship3.png", ship1, 170, 70);
+        ship1.addActionListener(e -> {addSubmarine(myFieldClicked.getX(), myFieldClicked.getY());});
+
     }
 
     private void addDestroyerButton(JPanel buttonPanel, GridBagConstraints gbc2)
@@ -276,6 +293,8 @@ public class BattleshipGUI extends JFrame
         ship1.setOpaque(true);
         buttonPanel.add(ship1, gbc2);
         setImageIcon("Resources/fullship2.png", ship1, 120, 70);
+        ship1.addActionListener(e -> {addDestroyer(myFieldClicked.getX(), myFieldClicked.getY());});
+
     }
 
 
@@ -314,42 +333,128 @@ public class BattleshipGUI extends JFrame
     // Funktionen zum erstellen der Schiffe auf dem Spielerfeld--------------------------------------------
     private void addCarrier(int row, int start)
     {
-        setImageIcon("Resources/ship6/row-1-column-1.png", myBoard[row][start], calcSize(), calcSize());
-        setImageIcon("Resources/ship6/row-1-column-2.png", myBoard[row][start+1], calcSize(), calcSize());
-        setImageIcon("Resources/ship6/row-1-column-3.png", myBoard[row][start+2], calcSize(), calcSize());
-        setImageIcon("Resources/ship6/row-1-column-4.png", myBoard[row][start+3], calcSize(), calcSize());
-        setImageIcon("Resources/ship6/row-1-column-5.png", myBoard[row][start+4], calcSize(), calcSize());
-        setImageIcon("Resources/ship6/row-1-column-6.png", myBoard[row][start+5], calcSize(), calcSize());
+        if(!gameData.checkIfAllShipsOfOneSortArePlaced(0))
+        {
+            setImageIcon("Resources/ship6/row-1-column-1.png", myBoard[row][start], calcSize(), calcSize());
+            setImageIcon("Resources/ship6/row-1-column-2.png", myBoard[row][start+1], calcSize(), calcSize());
+            setImageIcon("Resources/ship6/row-1-column-3.png", myBoard[row][start+2], calcSize(), calcSize());
+            setImageIcon("Resources/ship6/row-1-column-4.png", myBoard[row][start+3], calcSize(), calcSize());
+            setImageIcon("Resources/ship6/row-1-column-5.png", myBoard[row][start+4], calcSize(), calcSize());
+            setImageIcon("Resources/ship6/row-1-column-6.png", myBoard[row][start+5], calcSize(), calcSize());
+            gameData.addMyCarrier(new Point(row, start));
+            gameData.setShipsPlaced(0);
+        }
+        else
+        {
+            if(gameData.checkIffAllShipsArePlaced())
+            {
+                JOptionPane.showMessageDialog(battleshipFrame, "All Ships are set!");
+
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(battleshipFrame, "All Ships of this kind are set!");
+
+            }        }
     }
 
     private void addBattleship(int row, int start)
     {
+        if(!gameData.checkIfAllShipsOfOneSortArePlaced(1))
+        {
+            setImageIcon("Resources/ship5/row-1-column-1.png", myBoard[row][start], calcSize(), calcSize());
+            setImageIcon("Resources/ship5/row-1-column-2.png", myBoard[row][start+1], calcSize(), calcSize());
+            setImageIcon("Resources/ship5/row-1-column-3.png", myBoard[row][start+2], calcSize(), calcSize());
+            setImageIcon("Resources/ship5/row-1-column-4.png", myBoard[row][start+3], calcSize(), calcSize());
+            setImageIcon("Resources/ship5/row-1-column-5.png", myBoard[row][start+4], calcSize(), calcSize());
+            gameData.addMyBattleship(new Point(row, start));
+            gameData.setShipsPlaced(1);
+        }
+        else
+        {
+            if(gameData.checkIffAllShipsArePlaced())
+            {
+                JOptionPane.showMessageDialog(battleshipFrame, "All Ships are set!");
 
-        setImageIcon("Resources/ship5/row-1-column-1.png", myBoard[row][start], calcSize(), calcSize());
-        setImageIcon("Resources/ship5/row-1-column-2.png", myBoard[row][start+1], calcSize(), calcSize());
-        setImageIcon("Resources/ship5/row-1-column-3.png", myBoard[row][start+2], calcSize(), calcSize());
-        setImageIcon("Resources/ship5/row-1-column-4.png", myBoard[row][start+3], calcSize(), calcSize());
-        setImageIcon("Resources/ship5/row-1-column-5.png", myBoard[row][start+4], calcSize(), calcSize());
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(battleshipFrame, "All Ships of this kind are set!");
+
+            }        }
     }
 
     private void addCruiser(int row, int start)
     {
-        setImageIcon("Resources/ship4/row-1-column-1.png", myBoard[row][start], calcSize(), calcSize());
-        setImageIcon("Resources/ship4/row-1-column-2.png", myBoard[row][start+1], calcSize(), calcSize());
-        setImageIcon("Resources/ship4/row-1-column-3.png", myBoard[row][start+2], calcSize(), calcSize());
-        setImageIcon("Resources/ship4/row-1-column-4.png", myBoard[row][start+3], calcSize(), calcSize());
+        if(!gameData.checkIfAllShipsOfOneSortArePlaced(2))
+        {
+            setImageIcon("Resources/ship4/row-1-column-1.png", myBoard[row][start], calcSize(), calcSize());
+            setImageIcon("Resources/ship4/row-1-column-2.png", myBoard[row][start+1], calcSize(), calcSize());
+            setImageIcon("Resources/ship4/row-1-column-3.png", myBoard[row][start+2], calcSize(), calcSize());
+            setImageIcon("Resources/ship4/row-1-column-4.png", myBoard[row][start+3], calcSize(), calcSize());
+            gameData.addMyCruiser(new Point(row, start));
+            gameData.setShipsPlaced(2);
+        }
+        else
+        {
+            if(gameData.checkIffAllShipsArePlaced())
+            {
+                JOptionPane.showMessageDialog(battleshipFrame, "All Ships are set!");
+
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(battleshipFrame, "All Ships of this kind are set!");
+
+            }        }
     }
 
-    private void addSubmarine(int row, int start) {
-        setImageIcon("Resources/ship3/row-1-column-1.png", myBoard[row][start], calcSize(), calcSize());
-        setImageIcon("Resources/ship3/row-1-column-2.png", myBoard[row][start+1], calcSize(), calcSize());
-        setImageIcon("Resources/ship3/row-1-column-3.png", myBoard[row][start+2], calcSize(), calcSize());
+    private void addSubmarine(int row, int start)
+    {
+        if(!gameData.checkIfAllShipsOfOneSortArePlaced(3))
+        {
+            setImageIcon("Resources/ship3/row-1-column-1.png", myBoard[row][start], calcSize(), calcSize());
+            setImageIcon("Resources/ship3/row-1-column-2.png", myBoard[row][start+1], calcSize(), calcSize());
+            setImageIcon("Resources/ship3/row-1-column-3.png", myBoard[row][start+2], calcSize(), calcSize());
+            gameData.addMySubmarine(new Point(row, start));
+            gameData.setShipsPlaced(3);
+        }
+        else
+        {
+            if(gameData.checkIffAllShipsArePlaced())
+            {
+                JOptionPane.showMessageDialog(battleshipFrame, "All Ships are set!");
+
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(battleshipFrame, "All Ships of this kind are set!");
+
+            }        }
     }
 
     private void addDestroyer(int row, int start)
     {
-        setImageIcon("Resources/ship2/row-1-column-1.png", myBoard[row][start], calcSize(), calcSize());
-        setImageIcon("Resources/ship2/row-1-column-2.png", myBoard[row][start+1], calcSize(), calcSize());
+        if(!gameData.checkIfAllShipsOfOneSortArePlaced(4))
+        {
+            setImageIcon("Resources/ship2/row-1-column-1.png", myBoard[row][start], calcSize(), calcSize());
+            setImageIcon("Resources/ship2/row-1-column-2.png", myBoard[row][start+1], calcSize(), calcSize());
+            gameData.addMyDestroyer(new Point(row, start));
+            gameData.setShipsPlaced(4);
+        }
+        else
+        {
+            if(gameData.checkIffAllShipsArePlaced())
+            {
+                JOptionPane.showMessageDialog(battleshipFrame, "All Ships are set!");
+
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(battleshipFrame, "All Ships of this kind are set!");
+
+            }
+        }
     }
 
 

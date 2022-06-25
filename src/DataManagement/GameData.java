@@ -9,19 +9,25 @@ public class GameData implements Serializable {
 
     private ShipList myShips, opponentShips;
     private List<Point> myShipsHit, opponentShipsHit, myShipsMissed, opponentShipsMissed;
+    private int[] shipsNeeded;
+    private int[] shipsPlaced;
     private int turn, gameType, size;
+    private boolean shipsSet;
 
-    public GameData()
+    public GameData(int[] shipsNeeded)
     {
-        turn = 0;  // 1 = my Turn, 2 = opponents Turn,  0 = not set jet
-        gameType = 0;  // 1 = offline game, 2 = online game as server, 3 = online game as client, 0 = not set jet
-        size = 0; // größe des Spielfelds
-        myShips = new ShipList();  // array Liste mit meinen Schiffen
-        opponentShips = new ShipList();  // array Liste mit den gegnerischen Schiffen  Wird für Single-Player verwendet
-        myShipsHit = new ArrayList<>();  // array Liste mit meinen getroffenen Schiffen
-        opponentShipsHit = new ArrayList<>();  // array Liste mit den Schiffen, die ich getroffen habe
-        myShipsMissed = new ArrayList<>();  // array Liste mit meinen verfehlten Schiffen
-        opponentShipsMissed = new ArrayList<>();  // array Liste mit den Schiffen, die ich verfehlt habe
+        this.shipsNeeded = shipsNeeded;
+        this.shipsPlaced = new int[5];
+        this.shipsSet = false;
+        this.turn = 0;  // 1 = my Turn, 2 = opponents Turn,  0 = not set jet
+        this.gameType = 0;  // 1 = offline game, 2 = online game as server, 3 = online game as client, 0 = not set jet
+        this.size = 0; // größe des Spielfelds
+        this.myShips = new ShipList();  // array Liste mit meinen Schiffen
+        this.opponentShips = new ShipList();  // array Liste mit den gegnerischen Schiffen  Wird für Single-Player verwendet
+        this.myShipsHit = new ArrayList<>();  // array Liste mit meinen getroffenen Schiffen
+        this.opponentShipsHit = new ArrayList<>();  // array Liste mit den Schiffen, die ich getroffen habe
+        this.myShipsMissed = new ArrayList<>();  // array Liste mit meinen verfehlten Schiffen
+        this.opponentShipsMissed = new ArrayList<>();  // array Liste mit den Schiffen, die ich verfehlt habe
     }
 
 
@@ -138,4 +144,30 @@ public class GameData implements Serializable {
 
     public int getSize() {return size;}
 
+    public void setShipsSet(boolean i) {shipsSet = i;}
+
+    public boolean isShipsSet() {
+        return shipsSet;
+    }
+
+    public int[] getShipsNeeded() {
+        return shipsNeeded;
+    }
+
+    public void setShipsPlaced(int ship) {
+        this.shipsPlaced[ship] += 1;
+    }
+
+    public boolean checkIfAllShipsOfOneSortArePlaced(int ship) {
+        return this.shipsPlaced[ship] == this.shipsNeeded[ship];
+    }
+
+    public boolean checkIffAllShipsArePlaced()
+    {
+        return this.shipsPlaced[0] == this.shipsNeeded[0] &&
+                this.shipsPlaced[1] == this.shipsNeeded[1] &&
+                this.shipsPlaced[2] == this.shipsNeeded[2] &&
+                this.shipsPlaced[3] == this.shipsNeeded[3] &&
+                this.shipsPlaced[4] == this.shipsNeeded[4];
+    }
 }

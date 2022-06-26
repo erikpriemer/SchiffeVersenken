@@ -17,39 +17,16 @@ public class Main {
 
 
         // Tests
+        /*
+        ShipPlacementKI ki = new ShipPlacementKI(8);
+        ArrayList<Point> i = ki.generateShips(2, 2, 2, 2, 2);
 
-        ShipPlacementKI ki = new ShipPlacementKI(11);
-        ShipList i = ki.generateShips(2, 2, 2, 2, 2);
-        List<Point> a = i.getCarrier();
-        List<Point> b = i.getBattleship();
-        List<Point> c = i.getCruiser();
-        List<Point> d = i.getSubmarine();
-        List<Point> e = i.getDestroyer();
-
-        for(int j = 0; j< a.size(); j++)
+        for(int j = 0; j< i.size(); j++)
         {
-            System.out.println(a.get(j).getX() + " " + a.get(j).getY());
+            System.out.println(i.get(j).getX() + " " + i.get(j).getY());
         }
 
-        for(int j = 0; j< b.size(); j++)
-        {
-            System.out.println(b.get(j).getX() + " " + b.get(j).getY());
-        }
-
-        for(int j = 0; j< c.size(); j++)
-        {
-            System.out.println(c.get(j).getX() + " "+ c.get(j).getY());
-        }
-
-        for(int j = 0; j< d.size(); j++)
-        {
-            System.out.println(d.get(j).getX() + " "+ d.get(j).getY());
-        }
-
-        for(int j = 0; j< e.size(); j++)
-        {
-            System.out.println(e.get(j).getX() + " "+ e.get(j).getY());
-        }
+         */
 
 
         /*

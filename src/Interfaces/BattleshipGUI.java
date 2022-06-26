@@ -81,7 +81,7 @@ public class BattleshipGUI extends JFrame
                 myBoard[i][j].setOpaque(true);
                 int finalI = i;
                 int finalJ = j;
-                myBoard[i][j].addActionListener(e -> {myFieldClicked = new Point(finalI, finalJ);});
+                myBoard[i][j].addActionListener(e -> {myFieldClicked = new Point(finalJ, finalI);});
                 setImageIcon("Resources/water.png", myBoard[i][j], calcSize(), calcSize());
                 board1.add(myBoard[i][j]);
             }
@@ -231,7 +231,7 @@ public class BattleshipGUI extends JFrame
         battleshipFrame.add(leftPanel, BorderLayout.WEST);
         battleshipFrame.add(rightPanel, BorderLayout.EAST);
 
-        
+
         //Test der Funktionen
         /*
         addCarrier(3, 9);
@@ -324,35 +324,35 @@ public class BattleshipGUI extends JFrame
     // Wenn das Spieler-Schiff getroffen wird
     private void colorHitMyShip(int i, int j)
     {
-        setImageIcon("Resources/hitIcon.png", myBoard[i][j], calcSize(), calcSize());
-        myBoard[i][j].setBackground(new Color(165, 25, 25));
+        setImageIcon("Resources/hitIcon.png", myBoard[j][i], calcSize(), calcSize());
+        myBoard[j][i].setBackground(new Color(165, 25, 25));
     }
 
     // Wenn das Spieler-Schiff verfehlt wird
     private void colorMissMyShip(int i, int j)
     {
-        setImageIcon("Resources/miss.png", myBoard[i][j], calcSize(), calcSize());
-        myBoard[i][j].setBackground(Color.RED);
+        setImageIcon("Resources/miss.png", myBoard[j][i], calcSize(), calcSize());
+        myBoard[j][i].setBackground(Color.RED);
     }
 
     // Wenn das Gegner-Schiff getroffen wird
-    private void colorHitOpponentShip(int i, int j)
+    private void colorHitOpponentShip(int j, int i)
     {
-        setImageIcon("Resources/hitOpponent.png", opponentBoard[i][j], calcSize(), calcSize());
-        opponentBoard[i][j].setBackground(new Color(165, 25, 25));
+        setImageIcon("Resources/hitOpponent.png", opponentBoard[j][i], calcSize(), calcSize());
+        opponentBoard[j][i].setBackground(new Color(165, 25, 25));
     }
 
     // Wenn das Gegner-Schiff verfehlt wird
-    private void colorMissOpponentShip(int i, int j)
+    private void colorMissOpponentShip(int j, int i)
     {
-        setImageIcon("Resources/miss.png", opponentBoard[i][j], calcSize(), calcSize());
-        opponentBoard[i][j].setBackground(Color.RED);
+        setImageIcon("Resources/miss.png", opponentBoard[j][i], calcSize(), calcSize());
+        opponentBoard[j][i].setBackground(Color.RED);
     }
 
 
 
     // Funktionen zum erstellen der Schiffe auf dem Spielerfeld--------------------------------------------
-    private void addCarrier(int row, int start)
+    private void addCarrier(int start, int row)
     {
         if(!gameData.checkIfAllShipsOfOneSortArePlaced(0))
         {
@@ -362,7 +362,7 @@ public class BattleshipGUI extends JFrame
             setImageIcon("Resources/ship6/row-1-column-4.png", myBoard[row][start+3], calcSize(), calcSize());
             setImageIcon("Resources/ship6/row-1-column-5.png", myBoard[row][start+4], calcSize(), calcSize());
             setImageIcon("Resources/ship6/row-1-column-6.png", myBoard[row][start+5], calcSize(), calcSize());
-            gameData.addMyCarrier(new Point(row, start));
+            gameData.addMyCarrier(new Point(start, row));
             gameData.setShipsPlaced(0);
         }
         else
@@ -379,7 +379,7 @@ public class BattleshipGUI extends JFrame
             }        }
     }
 
-    private void addBattleship(int row, int start)
+    private void addBattleship(int start, int row)
     {
         if(!gameData.checkIfAllShipsOfOneSortArePlaced(1))
         {
@@ -388,7 +388,7 @@ public class BattleshipGUI extends JFrame
             setImageIcon("Resources/ship5/row-1-column-3.png", myBoard[row][start+2], calcSize(), calcSize());
             setImageIcon("Resources/ship5/row-1-column-4.png", myBoard[row][start+3], calcSize(), calcSize());
             setImageIcon("Resources/ship5/row-1-column-5.png", myBoard[row][start+4], calcSize(), calcSize());
-            gameData.addMyBattleship(new Point(row, start));
+            gameData.addMyBattleship(new Point(start, row));
             gameData.setShipsPlaced(1);
         }
         else
@@ -405,7 +405,7 @@ public class BattleshipGUI extends JFrame
             }        }
     }
 
-    private void addCruiser(int row, int start)
+    private void addCruiser(int start, int row)
     {
         if(!gameData.checkIfAllShipsOfOneSortArePlaced(2))
         {
@@ -413,7 +413,7 @@ public class BattleshipGUI extends JFrame
             setImageIcon("Resources/ship4/row-1-column-2.png", myBoard[row][start+1], calcSize(), calcSize());
             setImageIcon("Resources/ship4/row-1-column-3.png", myBoard[row][start+2], calcSize(), calcSize());
             setImageIcon("Resources/ship4/row-1-column-4.png", myBoard[row][start+3], calcSize(), calcSize());
-            gameData.addMyCruiser(new Point(row, start));
+            gameData.addMyCruiser(new Point(start, row));
             gameData.setShipsPlaced(2);
         }
         else
@@ -430,14 +430,14 @@ public class BattleshipGUI extends JFrame
             }        }
     }
 
-    private void addSubmarine(int row, int start)
+    private void addSubmarine(int start, int row)
     {
         if(!gameData.checkIfAllShipsOfOneSortArePlaced(3))
         {
             setImageIcon("Resources/ship3/row-1-column-1.png", myBoard[row][start], calcSize(), calcSize());
             setImageIcon("Resources/ship3/row-1-column-2.png", myBoard[row][start+1], calcSize(), calcSize());
             setImageIcon("Resources/ship3/row-1-column-3.png", myBoard[row][start+2], calcSize(), calcSize());
-            gameData.addMySubmarine(new Point(row, start));
+            gameData.addMySubmarine(new Point(start, row));
             gameData.setShipsPlaced(3);
         }
         else
@@ -454,13 +454,13 @@ public class BattleshipGUI extends JFrame
             }        }
     }
 
-    private void addDestroyer(int row, int start)
+    private void addDestroyer(int start, int row)
     {
         if(!gameData.checkIfAllShipsOfOneSortArePlaced(4))
         {
             setImageIcon("Resources/ship2/row-1-column-1.png", myBoard[row][start], calcSize(), calcSize());
             setImageIcon("Resources/ship2/row-1-column-2.png", myBoard[row][start+1], calcSize(), calcSize());
-            gameData.addMyDestroyer(new Point(row, start));
+            gameData.addMyDestroyer(new Point(start, row));
             gameData.setShipsPlaced(4);
         }
         else
@@ -522,6 +522,20 @@ public class BattleshipGUI extends JFrame
             {
                 gameData.addOpponentShipsMissed(opponentFieldClicked);
                 colorMissOpponentShip(opponentFieldClicked.getX(), opponentFieldClicked.getY());
+            }
+
+            if(gameData.getGameType() == 1)
+            {
+                Point p = this.placementKI.shoot();
+                if(gameData.checkIfOpponentHit(p))
+                {
+                    colorHitMyShip(p.getX(), p.getY());
+                }
+                else
+                {
+                    colorMissMyShip(p.getX(), p.getY());
+                }
+
             }
         }
         else

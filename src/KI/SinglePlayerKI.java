@@ -1,5 +1,6 @@
 package KI;
 
-public class SinglePlayerKI {
+import DataManagement.Point;
 
+public class SinglePlayerKI {
 }

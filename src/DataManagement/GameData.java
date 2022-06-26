@@ -7,8 +7,8 @@ import java.util.*;
 
 public class GameData implements Serializable {
 
-    private ShipList myShips, opponentShips;
-    private List<Point> myShipsHit, opponentShipsHit, myShipsMissed, opponentShipsMissed;
+    private ShipList myShips;
+    private List<Point> myShipsHit, opponentShipsHit, myShipsMissed, opponentShipsMissed, opponentShips;
     private int[] shipsNeeded;
     private int[] shipsPlaced;
     private int turn, gameType, size;
@@ -23,7 +23,7 @@ public class GameData implements Serializable {
         this.gameType = 0;  // 1 = offline game, 2 = online game as server, 3 = online game as client, 0 = not set jet
         this.size = 0; // größe des Spielfelds
         this.myShips = new ShipList();  // array Liste mit meinen Schiffen
-        this.opponentShips = new ShipList();  // array Liste mit den gegnerischen Schiffen  Wird für Single-Player verwendet
+        this.opponentShips = new ArrayList<>();  // array Liste mit den gegnerischen Schiffen  Wird für Single-Player verwendet
         this.myShipsHit = new ArrayList<>();  // array Liste mit meinen getroffenen Schiffen
         this.opponentShipsHit = new ArrayList<>();  // array Liste mit den Schiffen, die ich getroffen habe
         this.myShipsMissed = new ArrayList<>();  // array Liste mit meinen verfehlten Schiffen
@@ -56,36 +56,20 @@ public class GameData implements Serializable {
         myShips.addDestroyer(ship);
     }
 
-    public void setOpponentShips(ShipList ships)
+
+    public void addOpponentShip(Point ship)
+    {
+        opponentShips.add(ship);
+    }
+
+    public void setOpponentShips(ArrayList<Point> ships)
     {
         opponentShips = ships;
-    }
 
-
-
-    public void addOpponentCarrier(Point ship)
-    {
-        opponentShips.addCarrier(ship);
-    }
-
-    public void addOpponentBattleship(Point ship)
-    {
-        opponentShips.addBattleship(ship);
-    }
-
-    public void addOpponentCruiser(Point ship)
-    {
-        opponentShips.addCruiser(ship);
-    }
-
-    public void addOpponentSubmarine(Point ship)
-    {
-        opponentShips.addSubmarine(ship);
-    }
-
-    public void addOpponentDestroyer(Point ship)
-    {
-        opponentShips.addDestroyer(ship);
+        for(int j = 0; j< ships.size(); j++)
+        {
+            System.out.println(ships.get(j).getX() + " " + ships.get(j).getY());
+        }
     }
 
 
@@ -115,7 +99,7 @@ public class GameData implements Serializable {
         return this.myShips;
     }
 
-    public ShipList getOpponentShips() { return this.opponentShips; }
+    public List<Point> getOpponentShips() { return this.opponentShips; }
 
     public List<Point> getMyShipsHit()
     {
@@ -178,60 +162,73 @@ public class GameData implements Serializable {
 
     public boolean checkIfHit(Point p)
     {
-        for(int i = 0; i < opponentShips.getCarrier().size(); i++)
+        for(int i = 0; i < opponentShips.size(); i++)
         {
-            for(int j = 0; j < 6; j++)
+            if(opponentShips.get(i).getX() == p.getX() && opponentShips.get(i).getY() == p.getY())
             {
-                if(opponentShips.getCarrier().get(i).getX() == p.getX() && opponentShips.getCarrier().get(i).getX() + j == p.getY())
-                {
-                    return true;
-                }
+                return true;
             }
-        }
 
-        for(int i = 0; i < opponentShips.getBattleship().size(); i++)
-        {
-            for(int j = 0; j < 5; j++)
-            {
-                if(opponentShips.getBattleship().get(i).getX() == p.getX() && opponentShips.getBattleship().get(i).getX() + j == p.getY())
-                {
-                    return true;
-                }
-            }
-        }
-
-        for(int i = 0; i < opponentShips.getCruiser().size(); i++)
-        {
-            for(int j = 0; j < 4; j++)
-            {
-                if(opponentShips.getCruiser().get(i).getX() == p.getX() && opponentShips.getCruiser().get(i).getX() + j == p.getY())
-                {
-                    return true;
-                }
-            }
-        }
-
-        for(int i = 0; i < opponentShips.getSubmarine().size(); i++)
-        {
-            for(int j = 0; j < 3; j++)
-            {
-                if(opponentShips.getSubmarine().get(i).getX() == p.getX() && opponentShips.getSubmarine().get(i).getX() + j == p.getY())
-                {
-                    return true;
-                }
-            }
-        }
-
-        for(int i = 0; i < opponentShips.getDestroyer().size(); i++)
-        {
-            for(int j = 0; j < 2; j++)
-            {
-                if(opponentShips.getDestroyer().get(i).getX() == p.getX() && opponentShips.getDestroyer().get(i).getX() + j == p.getY())
-                {
-                    return true;
-                }
-            }
         }
         return false;
+    }
+
+    public boolean checkIfOpponentHit(Point p)
+    {
+        ArrayList<Point> arr= new ArrayList<>();
+
+        for(int i = 0; i < myShips.getCarrier().size(); i++)
+        {
+            arr.addAll(generateShipCoords(myShips.getCarrier().get(i), 6));
+        }
+
+        for(int i = 0; i < myShips.getBattleship().size(); i++)
+        {
+            arr.addAll(generateShipCoords(myShips.getBattleship().get(i), 5));
+        }
+
+        for(int i = 0; i < myShips.getCruiser().size(); i++)
+        {
+            arr.addAll(generateShipCoords(myShips.getCruiser().get(i), 4));
+        }
+
+        for(int i = 0; i < myShips.getSubmarine().size(); i++)
+        {
+            arr.addAll(generateShipCoords(myShips.getSubmarine().get(i), 3));
+        }
+
+        for(int i = 0; i < myShips.getDestroyer().size(); i++)
+        {
+            arr.addAll(generateShipCoords(myShips.getDestroyer().get(i), 2));
+        }
+
+
+        System.out.println("---------------------");
+        for(int j = 0; j< arr.size(); j++)
+        {
+            System.out.println(arr.get(j).getX() + " " + arr.get(j).getY());
+        }
+
+        for(int i = 0; i < arr.size(); i++)
+        {
+            if(arr.get(i).getX() == p.getX() && arr.get(i).getY() == p.getY())
+            {
+                return true;
+            }
+
+        }
+        return false;
+
+    }
+
+    public ArrayList<Point> generateShipCoords(Point p, int length)
+    {
+        ArrayList<Point> arr = new ArrayList<>();
+        for(int i = 0; i < length; i++)
+        {
+            arr.add(new Point(p.getX() + i, p.getY()));
+        }
+
+        return arr;
     }
 }

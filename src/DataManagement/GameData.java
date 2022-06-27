@@ -202,12 +202,14 @@ public class GameData implements Serializable {
             arr.addAll(generateShipCoords(myShips.getDestroyer().get(i), 2));
         }
 
-
+/*
         System.out.println("---------------------");
         for(int j = 0; j< arr.size(); j++)
         {
             System.out.println(arr.get(j).getX() + " " + arr.get(j).getY());
         }
+
+ */
 
         for(int i = 0; i < arr.size(); i++)
         {
@@ -230,5 +232,50 @@ public class GameData implements Serializable {
         }
 
         return arr;
+    }
+
+    public boolean checkIfWon()
+    {
+        if(opponentShipsHit.size() == opponentShips.size())
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkIfLost()
+    {
+        ArrayList<Point> arr= new ArrayList<>();
+
+        for(int i = 0; i < myShips.getCarrier().size(); i++)
+        {
+            arr.addAll(generateShipCoords(myShips.getCarrier().get(i), 6));
+        }
+
+        for(int i = 0; i < myShips.getBattleship().size(); i++)
+        {
+            arr.addAll(generateShipCoords(myShips.getBattleship().get(i), 5));
+        }
+
+        for(int i = 0; i < myShips.getCruiser().size(); i++)
+        {
+            arr.addAll(generateShipCoords(myShips.getCruiser().get(i), 4));
+        }
+
+        for(int i = 0; i < myShips.getSubmarine().size(); i++)
+        {
+            arr.addAll(generateShipCoords(myShips.getSubmarine().get(i), 3));
+        }
+
+        for(int i = 0; i < myShips.getDestroyer().size(); i++)
+        {
+            arr.addAll(generateShipCoords(myShips.getDestroyer().get(i), 2));
+        }
+
+        if(arr.size() == myShipsHit.size())
+        {
+            return true;
+        }
+        return false;
     }
 }

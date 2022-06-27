@@ -73,7 +73,7 @@ public class ShipPlacementKI {
                 {
                     break;
                 }
-                tempCheckList.add(new Point(x + i, y));  // falls die Koordinate des neu generierten Schiffes noch nicht
+                tempCheckList.add(new Point(x+i, y));  // falls die Koordinate des neu generierten Schiffes noch nicht
                 // besetzt ist, so speichere den Wert
             }
 
@@ -89,13 +89,41 @@ public class ShipPlacementKI {
         }
     }
 
-    public Point shoot()
+    public Point shoot(List<Point> hit, List<Point> miss)
     {
-        Random random = new Random();
-        int x = random.nextInt(fieldSize);
-        int y = random.nextInt(fieldSize);
-        Point p = new Point(x, y);
-        return p;
+        while (true) {
+            boolean fieldAlreadyShot = false;
+            Random random = new Random();
+            int x = random.nextInt(fieldSize);
+            int y = random.nextInt(fieldSize);
+            Point p = new Point(x, y);
+
+            for (int i = 0; i < hit.size(); i++)
+            {
+                //System.out.println(p.getY() + "==" + hit.get(i).getY() + "&&" +  p.getX()  + "==" + hit.get(i).getX());
+
+                if(p.getY() == hit.get(i).getY() && p.getX() == hit.get(i).getX())
+                {
+                    fieldAlreadyShot = true;
+                }
+            }
+
+            for (int i = 0; i < miss.size(); i++)
+            {
+                //System.out.println(p.getY() + "==" + miss.get(i).getY() + "&&" +  p.getX()  + "==" + miss.get(i).getX());
+
+                if(p.getY() == miss.get(i).getY() && p.getX() == miss.get(i).getX())
+                {
+                    fieldAlreadyShot = true;
+                }
+            }
+
+            if(!fieldAlreadyShot)
+            {
+                System.out.println(p.getX() + " " + p.getY());
+                return p;
+            }
+        }
     }
 
 

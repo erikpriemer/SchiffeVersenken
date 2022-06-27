@@ -513,10 +513,15 @@ public class BattleshipGUI extends JFrame
     {
         if(gameData.checkIffAllShipsArePlaced())
         {
+
             if(gameData.checkIfHit(opponentFieldClicked))
             {
                 gameData.addOpponentShipHit(opponentFieldClicked);
                 colorHitOpponentShip(opponentFieldClicked.getX(), opponentFieldClicked.getY());
+                if(gameData.checkIfWon())
+                {
+                    JOptionPane.showMessageDialog(battleshipFrame, "Congrats you won!");
+                }
             }
             else
             {
@@ -524,18 +529,28 @@ public class BattleshipGUI extends JFrame
                 colorMissOpponentShip(opponentFieldClicked.getX(), opponentFieldClicked.getY());
             }
 
-            if(gameData.getGameType() == 1)
-            {
-                Point p = this.placementKI.shoot();
-                if(gameData.checkIfOpponentHit(p))
-                {
-                    colorHitMyShip(p.getX(), p.getY());
-                }
-                else
-                {
-                    colorMissMyShip(p.getX(), p.getY());
-                }
 
+            if(gameData.getGameType() == 1 && !gameData.checkIfHit(opponentFieldClicked))
+            {
+                while(true)
+                {
+                    Point p = this.placementKI.shoot(gameData.getMyShipsHit(), gameData.getMyShipsMissed());
+                    if(gameData.checkIfOpponentHit(p))
+                    {
+                        colorHitMyShip(p.getX(), p.getY());
+                        gameData.addMyShipHit(p);
+                        if(gameData.checkIfLost())
+                        {
+                            JOptionPane.showMessageDialog(battleshipFrame, "You lost!");
+                        }
+                    }
+                    else
+                    {
+                        colorMissMyShip(p.getX(), p.getY());
+                        gameData.addMyShipsMissed(p);
+                        break;
+                    }
+                }
             }
         }
         else

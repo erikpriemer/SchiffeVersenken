@@ -1,5 +1,6 @@
 package Interfaces;
 
+import Netzwerk.MeinClient;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -203,6 +204,35 @@ public class PrepareOnlineBattleshipGUI {
         {
             f.setVisible(false);
             int[] s = {carrier.getValue(), battleship.getValue(), cruiser.getValue(), submarine.getValue(), destroyer.getValue()};
+            MeinClient client = new MeinClient(ip.getText(), Integer.parseInt(port.getText()));
+            client.sendeNachricht("size " + fieldSize.getValue());
+            String nachricht = "ships ";
+            for(int i = 0; i < carrier.getValue(); i++)
+            {
+                nachricht = nachricht + "6 ";
+            }
+
+            for(int i = 0; i < battleship.getValue(); i++)
+            {
+                nachricht = nachricht + "5 ";
+            }
+
+            for(int i = 0; i < cruiser.getValue(); i++)
+            {
+                nachricht = nachricht + "4 ";
+            }
+
+            for(int i = 0; i < submarine.getValue(); i++)
+            {
+                nachricht = nachricht + "3 ";
+            }
+
+            for(int i = 0; i < destroyer.getValue(); i++)
+            {
+                nachricht = nachricht + "2 ";
+            }
+            System.out.println(nachricht);
+            client.sendeNachricht(nachricht);
             new BattleshipGUI(fieldSize.getValue(), s, 1);
         }
 

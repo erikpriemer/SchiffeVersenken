@@ -2,6 +2,7 @@ package Interfaces;
 import DataManagement.GameData;
 import DataManagement.Point;
 import KI.ShipPlacementKI;
+import Netzwerk.MeinClient;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

@@ -9,23 +9,29 @@ public class StartingGUI
 
     public StartingGUI()
     {
-        Font font = new Font("Times", Font.PLAIN, 40);
+        Font font = new Font("Times", Font.PLAIN, 25);
         Font font2 = new Font("Times", Font.PLAIN, 20);
 
         frame = new JFrame("Schiffe Versenken");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(Box.createVerticalBox());
         frame.add(Box.createGlue());
-        frame.setPreferredSize(new Dimension(400, 400));
+        frame.setPreferredSize(new Dimension(600, 400));
 
         Box box = Box.createHorizontalBox();
         box.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JButton button = new JButton("Online");
+        JButton button = new JButton("Online/Client");
         button.addActionListener((e -> {online();}));
         button.setForeground(new Color(24, 109, 158));
         button.setFont(font);
         box.add(button);
+
+        JButton button1 = new JButton("Online/Server");
+        button1.addActionListener((e -> {onlineServer();}));
+        button1.setForeground(new Color(24, 109, 158));
+        button1.setFont(font);
+        box.add(button1);
 
         JButton button2 = new JButton("Offline");
         button2.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -60,6 +66,12 @@ public class StartingGUI
     {
         frame.setVisible(false);
         new PrepareOnlineBattleshipGUI();
+    }
+
+    void onlineServer()
+    {
+        frame.setVisible(false);
+        new PrepareOnlineBattleshipGUIServer();
     }
 
     void offline()

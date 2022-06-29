@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 public class ShipPlacementKI {
 
-    ShipList shipPlacement;
     ArrayList<Point> checkList;
     int fieldSize;
 
@@ -20,7 +19,7 @@ public class ShipPlacementKI {
 
     }
 
-    public ArrayList<Point> generateShips(int carrier, int battleship, int cruiser, int submarine, int destroyer)
+    public ArrayList<Point> generateShips(int carrier, int battleship, int cruiser, int submarine, int destroyer)  //liste mit schiffen zurück
     {
         for(int i = 1; i <= carrier; i++)
         {
@@ -89,7 +88,7 @@ public class ShipPlacementKI {
         }
     }
 
-    public Point shoot(List<Point> hit, List<Point> miss)
+    public Point shoot(List<Point> hit, List<Point> miss)  // gibt Point zurück
     {
         while (true) {
             boolean fieldAlreadyShot = false;

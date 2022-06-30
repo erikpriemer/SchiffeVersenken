@@ -3,6 +3,7 @@ import DataManagement.GameData;
 import DataManagement.Point;
 import KI.KI;
 import Netzwerk.MeinClient;
+import Netzwerk.MeinServer;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -39,6 +40,7 @@ public class BattleshipGUI extends JFrame
         {
             this.placementKI = new KI(gameData.getSize());
             gameData.setOpponentShips(placementKI.generateShips(quantityOfShips[0], quantityOfShips[1], quantityOfShips[2], quantityOfShips[3], quantityOfShips[4]));
+            gameData.setOpponentShipsList(placementKI.getShipList());
         }
 
         // Feldgröße wird mit der Variable size initialisiert

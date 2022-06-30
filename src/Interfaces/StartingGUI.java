@@ -21,28 +21,64 @@ public class StartingGUI
         Box box = Box.createHorizontalBox();
         box.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JButton button = new JButton("Online/Client");
-        button.addActionListener((e -> {online();}));
+        JLabel l1 = new JLabel();
+        l1.setText("Online:                         ");
+        box.add(l1);
+
+        JButton button = new JButton("Client");
+        button.addActionListener((e -> {onlineClient();}));
         button.setForeground(new Color(24, 109, 158));
         button.setFont(font);
         box.add(button);
 
-        JButton button1 = new JButton("Online/Server");
+        JButton button1 = new JButton("Server");
         button1.addActionListener((e -> {onlineServer();}));
         button1.setForeground(new Color(24, 109, 158));
         button1.setFont(font);
         box.add(button1);
+
+
+        frame.add(box);
+        frame.add(Box.createGlue());
+        frame.add(Box.createVerticalStrut(30));
+
+        Box box1 = Box.createHorizontalBox();
+        box.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel l2 = new JLabel();
+        l2.setText("Online with Computer:");
+        box1.add(l2);
+
+        JButton button4 = new JButton("Client");
+        button4.addActionListener((e -> {onlineClientKI();}));
+        button4.setForeground(new Color(158, 113, 24));
+        button4.setFont(font);
+        box1.add(button4);
+
+        JButton button5 = new JButton("Server");
+        button5.addActionListener((e -> {onlineServerKI();}));
+        button5.setForeground(new Color(158, 113, 24));
+        button5.setFont(font);
+        box1.add(button5);
+
+        frame.add(box1);
+        frame.add(Box.createGlue());
+        frame.add(Box.createVerticalStrut(10));
+
+        Box box3 = Box.createHorizontalBox();
+        box.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JButton button2 = new JButton("Offline");
         button2.setAlignmentX(Component.CENTER_ALIGNMENT);
         button2.addActionListener((e -> {offline();}));
         button2.setForeground(new Color(14, 120, 37));
         button2.setFont(font);
-        box.add(button2);
+        box3.add(button2);
 
-        frame.add(box);
+        frame.add(box3);
         frame.add(Box.createGlue());
-        frame.add(Box.createVerticalStrut(30));
+        frame.add(Box.createVerticalStrut(10));
+
 
         Box box2 = Box.createHorizontalBox();
         box.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -62,16 +98,28 @@ public class StartingGUI
         frame.setVisible(true);
     }
 
-    void online()
+    void onlineClient()
     {
         frame.setVisible(false);
-        new PrepareOnlineBattleshipGUI();
+        new PrepareOnlineBattleshipGUI(false);
     }
 
     void onlineServer()
     {
         frame.setVisible(false);
-        new PrepareOnlineBattleshipGUIServer();
+        new PrepareOnlineBattleshipGUIServer(false);
+    }
+
+    void onlineClientKI()
+    {
+        frame.setVisible(false);
+        new PrepareOnlineBattleshipGUI(true);
+    }
+
+    void onlineServerKI()
+    {
+        frame.setVisible(false);
+        new PrepareOnlineBattleshipGUIServer(true);
     }
 
     void offline()

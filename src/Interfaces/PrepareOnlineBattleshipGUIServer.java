@@ -12,10 +12,13 @@ public class PrepareOnlineBattleshipGUIServer {
     JButton b;
     JFrame f;
     JLabel lport;
+    boolean ki;
 
 
-    public PrepareOnlineBattleshipGUIServer()
+    public PrepareOnlineBattleshipGUIServer(boolean ki)
     {
+        this.ki = ki;
+
         f = new JFrame("Menü");
         JPanel p = new JPanel();
         lport = new JLabel();
@@ -100,7 +103,16 @@ public class PrepareOnlineBattleshipGUIServer {
             TimeUnit.SECONDS.sleep(2);
         }
         int[] t = {carrier, battleship, cruiser, submarine, destroyer};
-        BattleshipGUI battleshipGUI = new BattleshipGUI(fieldsize, t, 2);
+
+        if(!ki)
+        {
+            BattleshipGUI battleshipGUI = new BattleshipGUI(fieldsize, t, 2);
+        }
+
+        if(ki)
+        {
+            BattleshipGUI battleshipGUI = new BattleshipGUI(fieldsize, t, 4);
+        }
 
     }
 }

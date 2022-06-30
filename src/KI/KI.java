@@ -10,10 +10,12 @@ import java.util.ArrayList;
 public class KI {
 
     ArrayList<Point> checkList;
+    ShipList shipList;
     int fieldSize;
 
     public KI(int size)
     {
+        this.shipList = new ShipList();
         this.fieldSize = size;  // Feldgröße
         checkList = new ArrayList<>();  // Liste mit allen Schiffskoordinaten
 
@@ -82,7 +84,30 @@ public class KI {
             }
 
             // TODO Alle Schiffe in eine ShipList eintragen
+            if(length == 6)
+            {
+                shipList.addCarrier(new Point(x, y));
+            }
 
+            if(length == 5)
+            {
+                shipList.addDestroyer(new Point(x, y));
+            }
+
+            if(length == 4)
+            {
+                shipList.addCruiser(new Point(x, y));
+            }
+
+            if(length == 3)
+            {
+                shipList.addSubmarine(new Point(x, y));
+            }
+
+            if(length == 2)
+            {
+                shipList.addDestroyer(new Point(x, y));
+            }
 
             checkList.addAll(tempCheckList);  // speichere alle Koordinaten des neu generierten Schiffes in die checkListe ab
             break;
@@ -124,6 +149,11 @@ public class KI {
                 return p;
             }
         }
+    }
+
+    public ShipList getShipList()
+    {
+        return shipList;
     }
 
 

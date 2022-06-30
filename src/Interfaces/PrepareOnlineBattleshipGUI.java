@@ -34,9 +34,12 @@ public class PrepareOnlineBattleshipGUI {
     // textField
     static JTextField ip;
     static JTextField port;
+    boolean ki;
 
-    public PrepareOnlineBattleshipGUI()
+    public PrepareOnlineBattleshipGUI(boolean ki)
     {
+        this.ki = ki;
+
         // create a new frame
         f = new JFrame("Menü");
 
@@ -240,7 +243,16 @@ public class PrepareOnlineBattleshipGUI {
             }
             System.out.println(nachricht);
             client.sendeNachricht(nachricht);
-            new BattleshipGUI(fieldSize.getValue(), s, 1);
+
+        if(!ki)
+        {
+            BattleshipGUI battleshipGUI = new BattleshipGUI(fieldSize.getValue(), s, 3);
+        }
+
+        if(ki)
+        {
+            BattleshipGUI battleshipGUI = new BattleshipGUI(fieldSize.getValue(), s, 5);
+        }
 
 
     }

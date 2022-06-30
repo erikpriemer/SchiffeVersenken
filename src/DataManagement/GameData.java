@@ -20,7 +20,7 @@ public class GameData implements Serializable {
         this.shipsPlaced = new int[5];
         this.shipsSet = false;
         this.turn = 0;  // 1 = my Turn, 2 = opponents Turn,  0 = not set jet
-        this.gameType = 0;  // 1 = offline game, 2 = online game as server, 3 = online game as client, 0 = not set jet
+        this.gameType = 0;  // 1 = offline game, 2 = online game as server, 3 = online game as client, 0 = not set jet, 4 = ki game as server, 5 = ki game as client
         this.size = 0; // größe des Spielfelds
         this.myShips = new ShipList();  // array Liste mit meinen Schiffen
         this.opponentShips = new ArrayList<>();  // array Liste mit den gegnerischen Schiffen  Wird für Single-Player verwendet
@@ -71,6 +71,11 @@ public class GameData implements Serializable {
         {
             System.out.println(ships.get(j).getX() + " " + ships.get(j).getY());
         }
+    }
+
+    public void setOpponentShipsList(ShipList shipList)
+    {
+        opponentShipsList = shipList;
     }
 
 

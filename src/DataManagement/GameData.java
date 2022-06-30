@@ -7,7 +7,7 @@ import java.util.*;
 
 public class GameData implements Serializable {
 
-    private ShipList myShips;
+    private ShipList myShips, opponentShipsList;
     private List<Point> myShipsHit, opponentShipsHit, myShipsMissed, opponentShipsMissed, opponentShips;
     private int[] shipsNeeded;
     private int[] shipsPlaced;
@@ -24,6 +24,7 @@ public class GameData implements Serializable {
         this.size = 0; // größe des Spielfelds
         this.myShips = new ShipList();  // array Liste mit meinen Schiffen
         this.opponentShips = new ArrayList<>();  // array Liste mit den gegnerischen Schiffen  Wird für Single-Player verwendet
+        this.opponentShipsList = new ShipList();  // ShipList mit allen gegnerischen Schiffen (geordnet nach Schiffart)
         this.myShipsHit = new ArrayList<>();  // array Liste mit meinen getroffenen Schiffen
         this.opponentShipsHit = new ArrayList<>();  // array Liste mit den Schiffen, die ich getroffen habe
         this.myShipsMissed = new ArrayList<>();  // array Liste mit meinen verfehlten Schiffen

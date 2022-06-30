@@ -12,7 +12,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 
-
+// TODO alle Koordiniaten in Points umwandeln !!!!
 public class BattleshipGUI extends JFrame
 {
     // Spielerfeld und gegnerisches Feld bestehend aus JButtons
@@ -34,7 +34,7 @@ public class BattleshipGUI extends JFrame
         gameData.setGameType(gameType);
         gameData.setSize(size);
 
-        // KI starkten
+        // KI starten
         if(gameData.getGameType() == 1)
         {
             this.placementKI = new KI(gameData.getSize());
@@ -142,7 +142,6 @@ public class BattleshipGUI extends JFrame
 
 
         // Schiffe zum buttonPanel2 hinzufügen
-
         addCarrierButton(buttonPanel2,gbc2);
         addBattleshipButton(buttonPanel2,gbc2);
         addCruiserButton(buttonPanel2,gbc2);
@@ -231,31 +230,6 @@ public class BattleshipGUI extends JFrame
         battleshipFrame.add(boardPanel, BorderLayout.CENTER);
         battleshipFrame.add(leftPanel, BorderLayout.WEST);
         battleshipFrame.add(rightPanel, BorderLayout.EAST);
-
-
-        //Test der Funktionen
-        /*
-        addCarrier(3, 9);
-        addCarrier(3, 4);
-        addBattleship(5, 6);
-        addBattleship(5, 2);
-        addCruiser(4, 10);
-        addCruiser(5, 0);
-        addSubmarine(2, 1);
-        addSubmarine(1, 5);
-        addDestroyer(7, 8);
-        addDestroyer(2, 8);
-
-
-        colorMissOpponentShip(6, 8);
-        colorMissOpponentShip(3, 5);
-        colorHitOpponentShip(8, 1);
-        colorHitOpponentShip(8, 2);
-        colorHitOpponentShip(8, 3);
-        colorHitOpponentShip(8, 4);
-
-         */
-
     }
 
     //Ab hier werden alle Buttons für die Schiffe erstellt-----------------------------------------------

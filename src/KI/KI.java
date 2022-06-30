@@ -81,7 +81,8 @@ public class KI {
                 continue;
             }
 
-            // Füge das Schiff in die ShipList zur passenden Liste hinzu
+            // TODO Alle Schiffe in eine ShipList eintragen
+
 
             checkList.addAll(tempCheckList);  // speichere alle Koordinaten des neu generierten Schiffes in die checkListe ab
             break;

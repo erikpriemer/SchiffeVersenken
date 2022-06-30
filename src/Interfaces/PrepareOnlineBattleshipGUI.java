@@ -181,7 +181,7 @@ public class PrepareOnlineBattleshipGUI {
         lsubmarine.setText("Submarine");
         ldestroyer.setText("Destroyer");
         lip.setText("IP-Address        ");
-        lport.setText("Port(6666, 6667)");
+        lport.setText("Port                 ");
 
         // set the size of frame
         f.setSize(300, 500);
@@ -196,12 +196,19 @@ public class PrepareOnlineBattleshipGUI {
         int ships = carrier.getValue()*6 + battleship.getValue()*5 + cruiser.getValue()*4 +
                 submarine.getValue()*3 + destroyer.getValue()*2;
         int field = fieldSize.getValue() * fieldSize.getValue();
+
         if(field / ships > 3)
         {
             JOptionPane.showMessageDialog(f, "You need more ships!");
+            return;
         }
-        else
+
+        if((field / ships)*10 < 25)
         {
+            JOptionPane.showMessageDialog(f, "You have to many ships!");
+            return;
+        }
+
             f.setVisible(false);
             int[] s = {carrier.getValue(), battleship.getValue(), cruiser.getValue(), submarine.getValue(), destroyer.getValue()};
             MeinClient client = new MeinClient(ip.getText(), Integer.parseInt(port.getText()));
@@ -234,7 +241,7 @@ public class PrepareOnlineBattleshipGUI {
             System.out.println(nachricht);
             client.sendeNachricht(nachricht);
             new BattleshipGUI(fieldSize.getValue(), s, 1);
-        }
+
 
     }
 }

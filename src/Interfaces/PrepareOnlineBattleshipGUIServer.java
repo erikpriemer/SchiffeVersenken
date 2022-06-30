@@ -19,7 +19,7 @@ public class PrepareOnlineBattleshipGUIServer {
         f = new JFrame("Menü");
         JPanel p = new JPanel();
         lport = new JLabel();
-        lport.setText("Port(6666, 6667)");
+        lport.setText("Port");
 
         port = new JTextField();
         port.setPreferredSize(new Dimension(150, 25));

@@ -175,13 +175,19 @@ public class PrepareBattleshipGUI {
         if(field / ships > 3)
         {
             JOptionPane.showMessageDialog(f, "You need more ships!");
+            return;
         }
-        else
+
+        if((field / ships)*10 < 25)
         {
-            f.setVisible(false);
-            int[] s = {carrier.getValue(), battleship.getValue(), cruiser.getValue(), submarine.getValue(), destroyer.getValue()};
-            new BattleshipGUI(fieldSize.getValue(), s, 1);
+            JOptionPane.showMessageDialog(f, "You have to many ships!");
+            return;
         }
+
+        f.setVisible(false);
+        int[] s = {carrier.getValue(), battleship.getValue(), cruiser.getValue(), submarine.getValue(), destroyer.getValue()};
+        new BattleshipGUI(fieldSize.getValue(), s, 1);
+
 
     }
 }

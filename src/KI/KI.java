@@ -7,15 +7,15 @@ import java.util.List;
 import java.util.Random;
 import java.util.ArrayList;
 
-public class ShipPlacementKI {
+public class KI {
 
     ArrayList<Point> checkList;
     int fieldSize;
 
-    public ShipPlacementKI(int size)
+    public KI(int size)
     {
-        this.fieldSize = size;
-        checkList = new ArrayList<>();
+        this.fieldSize = size;  // Feldgröße
+        checkList = new ArrayList<>();  // Liste mit allen Schiffskoordinaten
 
     }
 
@@ -23,15 +23,15 @@ public class ShipPlacementKI {
     {
         for(int i = 1; i <= carrier; i++)
         {
-            calculateShip(6);
+            calculateShip(6); // berechne Schiffe mit länge 6
         }
         for(int i = 1; i <= battleship; i++)
         {
-            calculateShip(5);
+            calculateShip(5); // mit 5
         }
         for(int i = 1; i <= cruiser; i++)
         {
-            calculateShip(4);
+            calculateShip(4); //..
         }
         for(int i = 1; i <= submarine; i++)
         {
@@ -58,7 +58,7 @@ public class ShipPlacementKI {
             ArrayList<Point> tempCheckList = new ArrayList<>();  // erstelle temporäre ArrayList zum speichern des Schiffes
             boolean breaks = false;  // für den Fall, dass sich ein Schiff überschneidet, wird der Wert true gesetzt
 
-            for (int i = 0; i < length; i++) {  //gehe das Komplette Schiff durch und...
+            for (int i = 0; i < length; i++) {  //gehe das Komplette checkliste durch und...
 
                 for(int j = 0; j < checkList.size(); j++)
                 {
@@ -94,14 +94,14 @@ public class ShipPlacementKI {
             boolean fieldAlreadyShot = false;
             Random random = new Random();
             int x = random.nextInt(fieldSize);
-            int y = random.nextInt(fieldSize);
+            int y = random.nextInt(fieldSize); // erstelle einen Random Point mit x und y Wert
             Point p = new Point(x, y);
 
-            for (int i = 0; i < hit.size(); i++)
+            for (int i = 0; i < hit.size(); i++)  // gehe alle treffer durch
             {
                 //System.out.println(p.getY() + "==" + hit.get(i).getY() + "&&" +  p.getX()  + "==" + hit.get(i).getX());
 
-                if(p.getY() == hit.get(i).getY() && p.getX() == hit.get(i).getX())
+                if(p.getY() == hit.get(i).getY() && p.getX() == hit.get(i).getX())  // falls der generierte Point schonmal generiert wurde...
                 {
                     fieldAlreadyShot = true;
                 }
@@ -111,13 +111,13 @@ public class ShipPlacementKI {
             {
                 //System.out.println(p.getY() + "==" + miss.get(i).getY() + "&&" +  p.getX()  + "==" + miss.get(i).getX());
 
-                if(p.getY() == miss.get(i).getY() && p.getX() == miss.get(i).getX())
+                if(p.getY() == miss.get(i).getY() && p.getX() == miss.get(i).getX())  // falls der generierte Point schonmal generiert wurde...
                 {
                     fieldAlreadyShot = true;
                 }
             }
 
-            if(!fieldAlreadyShot)
+            if(!fieldAlreadyShot)  // falls das Feld noch nicht beschossen wurde, so gebe den Point zurück
             {
                 System.out.println(p.getX() + " " + p.getY());
                 return p;

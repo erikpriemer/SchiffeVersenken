@@ -1,7 +1,6 @@
 import DataManagement.Point;
 import DataManagement.ShipList;
 import Interfaces.StartingGUI;
-import KI.ShipPlacementKI;
 import Database.ScoreHandler;
 import DataManagement.GameData;
 

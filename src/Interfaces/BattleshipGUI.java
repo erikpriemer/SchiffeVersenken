@@ -1,7 +1,7 @@
 package Interfaces;
 import DataManagement.GameData;
 import DataManagement.Point;
-import KI.ShipPlacementKI;
+import KI.KI;
 import Netzwerk.MeinClient;
 
 import javax.imageio.ImageIO;
@@ -23,7 +23,7 @@ public class BattleshipGUI extends JFrame
     Point myFieldClicked;
     Point opponentFieldClicked;
     JFrame battleshipFrame;
-    ShipPlacementKI placementKI;
+    KI placementKI;
 
     public BattleshipGUI(int size, int[] quantityOfShips, int gameType) {
 
@@ -37,7 +37,7 @@ public class BattleshipGUI extends JFrame
         // KI starkten
         if(gameData.getGameType() == 1)
         {
-            this.placementKI = new ShipPlacementKI(gameData.getSize());
+            this.placementKI = new KI(gameData.getSize());
             gameData.setOpponentShips(placementKI.generateShips(quantityOfShips[0], quantityOfShips[1], quantityOfShips[2], quantityOfShips[3], quantityOfShips[4]));
         }
 

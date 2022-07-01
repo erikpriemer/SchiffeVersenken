@@ -30,7 +30,7 @@ public class PrepareOnlineBattleshipGUIServer {
         b = new JButton("Enter");
         b.addActionListener(e -> {
             try {
-                enter();
+                start();
             } catch (InterruptedException interruptedException) {
                 interruptedException.printStackTrace();
             }
@@ -48,7 +48,7 @@ public class PrepareOnlineBattleshipGUIServer {
         f.setVisible(true);
     }
 
-    void enter() throws InterruptedException {
+    void start() throws InterruptedException {
         MeinServer meinServer = new MeinServer(Integer.parseInt(port.getText()));
         meinServer.RUN();
         int fieldsize;

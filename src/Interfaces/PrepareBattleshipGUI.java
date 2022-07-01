@@ -3,12 +3,13 @@ package Interfaces;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import java.awt.*;
 
 public class PrepareBattleshipGUI {
 
     // frame
     static JFrame f;
+
+    static JButton b;
 
     // slider
     static JSlider fieldSize;
@@ -44,9 +45,9 @@ public class PrepareBattleshipGUI {
 
         // create button
 
-        JButton b = new JButton("Enter");
+        b = new JButton("Enter");
         b.addActionListener(e -> {
-            checkShipCount();
+            start();
         });
 
         // create a slider
@@ -167,12 +168,12 @@ public class PrepareBattleshipGUI {
 
     }
 
-    void checkShipCount()
+    void start()
     {
         int ships = carrier.getValue()*6 + battleship.getValue()*5 + cruiser.getValue()*4 +
                 submarine.getValue()*3 + destroyer.getValue()*2;
         int field = fieldSize.getValue() * fieldSize.getValue();
-        if(field / ships > 3)
+        if((field / ships)*10 > 30)
         {
             JOptionPane.showMessageDialog(f, "You need more ships!");
             return;

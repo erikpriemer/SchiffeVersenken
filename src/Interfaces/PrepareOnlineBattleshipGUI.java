@@ -59,7 +59,7 @@ public class PrepareOnlineBattleshipGUI {
         // create button
         b = new JButton("Enter");
         b.addActionListener(e -> {
-            checkShipCount();
+            start();
         });
 
         // create Text field
@@ -194,7 +194,7 @@ public class PrepareOnlineBattleshipGUI {
 
     }
 
-    void checkShipCount()
+    void start()
     {
         int ships = carrier.getValue()*6 + battleship.getValue()*5 + cruiser.getValue()*4 +
                 submarine.getValue()*3 + destroyer.getValue()*2;

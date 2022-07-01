@@ -2,8 +2,6 @@ package Interfaces;
 import DataManagement.GameData;
 import DataManagement.Point;
 import KI.KI;
-import Netzwerk.MeinClient;
-import Netzwerk.MeinServer;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -24,7 +22,7 @@ public class BattleshipGUI extends JFrame
     Point myFieldClicked;
     Point opponentFieldClicked;
     JFrame battleshipFrame;
-    KI placementKI;
+    KI ki;
 
     public BattleshipGUI(int size, int[] quantityOfShips, int gameType) {
 
@@ -38,9 +36,9 @@ public class BattleshipGUI extends JFrame
         // KI starten
         if(gameData.getGameType() == 1)
         {
-            this.placementKI = new KI(gameData.getSize());
-            gameData.setOpponentShips(placementKI.generateShips(quantityOfShips[0], quantityOfShips[1], quantityOfShips[2], quantityOfShips[3], quantityOfShips[4]));
-            gameData.setOpponentShipsList(placementKI.getShipList());
+            this.ki = new KI(gameData.getSize());
+            gameData.setOpponentShips(ki.generateShips(quantityOfShips[0], quantityOfShips[1], quantityOfShips[2], quantityOfShips[3], quantityOfShips[4]));
+            gameData.setOpponentShipsList(ki.getShipList());
         }
 
         // Feldgröße wird mit der Variable size initialisiert
@@ -511,7 +509,7 @@ public class BattleshipGUI extends JFrame
             {
                 while(true)
                 {
-                    Point p = this.placementKI.shoot(gameData.getMyShipsHit(), gameData.getMyShipsMissed());
+                    Point p = this.ki.shoot(gameData.getMyShipsHit(), gameData.getMyShipsMissed());
                     if(gameData.checkIfOpponentHit(p))
                     {
                         colorHitMyShip(p.getX(), p.getY());

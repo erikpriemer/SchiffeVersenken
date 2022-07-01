@@ -1,7 +1,6 @@
 package Interfaces;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 public class StartingGUI
 {
@@ -102,7 +101,7 @@ public class StartingGUI
 
         loadGameButton = new JButton("Load Game");
         loadGameButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        loadGameButton.addActionListener((e -> {offline();}));
+        loadGameButton.addActionListener((e -> {loadGame();}));
         loadGameButton.setForeground(new Color(14, 120, 37));
         loadGameButton.setFont(font);
         loadGame.add(loadGameButton);
@@ -162,6 +161,7 @@ public class StartingGUI
 
     void loadGame()
     {
-
+        frame.setVisible(false);
+        new LoadGame();
     }
 }

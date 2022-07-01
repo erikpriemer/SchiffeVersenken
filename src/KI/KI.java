@@ -57,25 +57,51 @@ public class KI {
             int yMax = fieldSize;  // Maximaler y-Wert, den ein Schiff annehmen darf
             int x = rand.nextInt(xMax);  // generiere einen x-Wert
             int y = rand.nextInt(yMax);  // generiere einen y-Wert
+            int z = rand.nextInt(2);
+            System.out.println("random value "  + z);
             ArrayList<Point> tempCheckList = new ArrayList<>();  // erstelle temporäre ArrayList zum speichern des Schiffes
             boolean breaks = false;  // für den Fall, dass sich ein Schiff überschneidet, wird der Wert true gesetzt
 
-            for (int i = 0; i < length; i++) {  //gehe das Komplette checkliste durch und...
+            if(z == 0)
+            {
+                for (int i = 0; i < length; i++) {  //Erstellt vertikales Schiff
 
-                for(int j = 0; j < checkList.size(); j++)
-                {
-                    if(checkList.get(j).getX() == x+i && checkList.get(j).getY() == y)
+                    for(int j = 0; j < checkList.size(); j++)
                     {
-                        breaks = true;
-                        break;  // falls das Schiff ein schon generiertes Schiff schneidet, so berechne neu
+                        if(checkList.get(j).getX() == x+i && checkList.get(j).getY() == y)
+                        {
+                            breaks = true;
+                            break;  // falls das Schiff ein schon generiertes Schiff schneidet, so berechne neu
+                        }
                     }
+                    if(breaks)
+                    {
+                        break;
+                    }
+                    tempCheckList.add(new Point(x+i, y));  // falls die Koordinate des neu generierten Schiffes noch nicht
+                    // besetzt ist, so speichere den Wert
                 }
-                if(breaks)
-                {
-                    break;
+            }
+
+            else
+            {
+                for (int i = 0; i < length; i++) {  // erstellt horizontales Schiff
+
+                    for(int j = 0; j < checkList.size(); j++)
+                    {
+                        if(checkList.get(j).getX() == y && checkList.get(j).getY() == x+i)
+                        {
+                            breaks = true;
+                            break;  // falls das Schiff ein schon generiertes Schiff schneidet, so berechne neu
+                        }
+                    }
+                    if(breaks)
+                    {
+                        break;
+                    }
+                    tempCheckList.add(new Point(y, x+i));  // falls die Koordinate des neu generierten Schiffes noch nicht
+                    // besetzt ist, so speichere den Wert
                 }
-                tempCheckList.add(new Point(x+i, y));  // falls die Koordinate des neu generierten Schiffes noch nicht
-                // besetzt ist, so speichere den Wert
             }
 
             if(breaks) // falls sich Schiffe überschneiden, so fange die while-Schleife wieder von vorne an
@@ -83,7 +109,6 @@ public class KI {
                 continue;
             }
 
-            // TODO Alle Schiffe in eine ShipList eintragen
             if(length == 6)
             {
                 shipList.addCarrier(new Point(x, y));
@@ -121,7 +146,9 @@ public class KI {
             Random random = new Random();
             int x = random.nextInt(fieldSize);
             int y = random.nextInt(fieldSize); // erstelle einen Random Point mit x und y Wert
+            int z = random.nextInt(2);
             Point p = new Point(x, y);
+
 
             for (int i = 0; i < hit.size(); i++)  // gehe alle treffer durch
             {

@@ -5,6 +5,7 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.util.concurrent.TimeUnit;
 
 public class PrepareOnlineBattleshipGUI {
     // frame
@@ -59,7 +60,11 @@ public class PrepareOnlineBattleshipGUI {
         // create button
         b = new JButton("Enter");
         b.addActionListener(e -> {
-            start();
+            try {
+                start();
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
+            }
         });
 
         // create Text field
@@ -194,8 +199,7 @@ public class PrepareOnlineBattleshipGUI {
 
     }
 
-    void start()
-    {
+    void start() throws InterruptedException {
         int ships = carrier.getValue()*6 + battleship.getValue()*5 + cruiser.getValue()*4 +
                 submarine.getValue()*3 + destroyer.getValue()*2;
         int field = fieldSize.getValue() * fieldSize.getValue();
@@ -216,6 +220,9 @@ public class PrepareOnlineBattleshipGUI {
             int[] s = {carrier.getValue(), battleship.getValue(), cruiser.getValue(), submarine.getValue(), destroyer.getValue()};
             MeinClient client = new MeinClient(ip.getText(), Integer.parseInt(port.getText()));
             client.sendeNachricht("size " + fieldSize.getValue());
+
+            TimeUnit.SECONDS.sleep(2);
+
             String nachricht = "ships ";
             for(int i = 0; i < carrier.getValue(); i++)
             {

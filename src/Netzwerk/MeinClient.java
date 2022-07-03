@@ -39,7 +39,7 @@ public class MeinClient {
 
     }
     public static void main(String[] args) {
-        MeinClient MeinClient = new MeinClient("192.168.178.81", 40000);
+        MeinClient MeinClient = new MeinClient("192.168.178.81", 50000);
         MeinClient.sendeNachricht(" HAllo ");
     }
 

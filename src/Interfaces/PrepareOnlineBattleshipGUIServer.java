@@ -75,23 +75,23 @@ public class PrepareOnlineBattleshipGUIServer {
                 ships = meinServer.value.split(" ");
                 for(int i = 1; i < ships.length; i++)
                 {
-                    if(ships[i] == "6")
+                    if(ships[i].equals("6"))
                     {
                         carrier += 1;
                     }
-                    if(ships[i] == "5")
+                    if(ships[i].equals("5"))
                     {
                         battleship += 1;
                     }
-                    if(ships[i] == "4")
+                    if(ships[i].equals("4"))
                     {
                         cruiser += 1;
                     }
-                    if(ships[i] == "3")
+                    if(ships[i].equals("3"))
                     {
                         submarine += 1;
                     }
-                    if(ships[i] == "2")
+                    if(ships[i].equals("2"))
                     {
                         destroyer += 1;
                     }
@@ -104,6 +104,10 @@ public class PrepareOnlineBattleshipGUIServer {
             TimeUnit.SECONDS.sleep(2);
         }
         int[] t = {carrier, battleship, cruiser, submarine, destroyer};
+        for(int i = 0; i < t.length; i++)
+        {
+            System.out.println(t[i]);
+        }
 
         if(!ki)
         {

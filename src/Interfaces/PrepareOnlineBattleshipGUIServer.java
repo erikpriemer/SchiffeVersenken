@@ -4,6 +4,7 @@ import Netzwerk.MeinServer;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public class PrepareOnlineBattleshipGUIServer {
@@ -31,7 +32,7 @@ public class PrepareOnlineBattleshipGUIServer {
         b.addActionListener(e -> {
             try {
                 start();
-            } catch (InterruptedException interruptedException) {
+            } catch (InterruptedException | IOException interruptedException) {
                 interruptedException.printStackTrace();
             }
         });
@@ -48,7 +49,7 @@ public class PrepareOnlineBattleshipGUIServer {
         f.setVisible(true);
     }
 
-    void start() throws InterruptedException {
+    void start() throws InterruptedException, IOException {
         MeinServer meinServer = new MeinServer(Integer.parseInt(port.getText()));
         meinServer.RUN();
         int fieldsize;

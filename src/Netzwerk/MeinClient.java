@@ -23,6 +23,7 @@ public class MeinClient {
             Socket socket = new Socket();
             socket.connect(address, 100);
 
+
             PrintWriter PW = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
             PW.println(Nachricht);
             PW.flush();

@@ -10,6 +10,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.util.concurrent.TimeUnit;
 
 // TODO alle Koordiniaten in Points umwandeln !!!!
 public class BattleshipGUI extends JFrame
@@ -121,7 +122,13 @@ public class BattleshipGUI extends JFrame
         JButton shootButton = new JButton("Shoot");
         shootButton.setPreferredSize(new Dimension(100, 50));
         shootButton.setForeground(Color.gray);
-        shootButton.addActionListener(e -> {shoot();});
+        shootButton.addActionListener(e -> {
+            try {
+                shoot();
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
+            }
+        });
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -484,8 +491,7 @@ public class BattleshipGUI extends JFrame
         return 600/fieldSize;
     }
 
-    public void shoot()
-    {
+    public void shoot() throws InterruptedException {
         if(gameData.checkIffAllShipsArePlaced())
         {
 
@@ -507,11 +513,13 @@ public class BattleshipGUI extends JFrame
 
             if(gameData.getGameType() == 1 && !gameData.checkIfHit(opponentFieldClicked))
             {
+                boolean hit = false;
                 while(true)
                 {
-                    Point p = this.ki.shoot(gameData.getMyShipsHit(), gameData.getMyShipsMissed());
+                    Point p = this.ki.shootHard(gameData.getMyShipsHit(), gameData.getMyShipsMissed(), hit);
                     if(gameData.checkIfOpponentHit(p))
                     {
+                        hit = true;
                         colorHitMyShip(p.getX(), p.getY());
                         gameData.addMyShipHit(p);
                         if(gameData.checkIfLost())
@@ -521,16 +529,19 @@ public class BattleshipGUI extends JFrame
                     }
                     else
                     {
+                        hit = false;
+                        //ki.helper.inProgress = false;
                         colorMissMyShip(p.getX(), p.getY());
                         gameData.addMyShipsMissed(p);
                         break;
                     }
+                    //TimeUnit.SECONDS.sleep(2);
                 }
             }
         }
         else
         {
-            JOptionPane.showMessageDialog(battleshipFrame, "Not all ships are set yes!");
+            JOptionPane.showMessageDialog(battleshipFrame, "Not all ships are set yet!");
         }
     }
 }

@@ -69,12 +69,12 @@ public class PrepareOnlineBattleshipGUI {
         port.setPreferredSize(new Dimension(150, 25));
 
         // create a slider
-        fieldSize = new JSlider(8, 25, 15);
+        fieldSize = new JSlider(5, 30, 15);
         carrier = new JSlider(0, 0, 0);
-        battleship = new JSlider(1, 9, 5);
-        cruiser = new JSlider(1, 9, 5);
-        submarine = new JSlider(1, 9, 5);
-        destroyer = new JSlider(0, 10, 5);
+        battleship = new JSlider(0, 13, 5);
+        cruiser = new JSlider(0, 13, 5);
+        submarine = new JSlider(1, 13, 5);
+        destroyer = new JSlider(0, 12, 5);
 
         // paint the ticks and tracks
         fieldSize.setPaintTrack(true);
@@ -135,7 +135,7 @@ public class PrepareOnlineBattleshipGUI {
                 if(fieldSize.getValue() >= 20)
                 {
                     carrier.setMinimum(1);
-                    carrier.setMaximum(9);
+                    carrier.setMaximum(13);
                     destroyer.setMaximum(0);
                     destroyer.setMinimum(0);
                 }

@@ -67,10 +67,13 @@ public class GameData implements Serializable {
     {
         opponentShips = ships;
 
+        /*
         for(int j = 0; j< ships.size(); j++)
         {
             System.out.println(ships.get(j).getX() + " " + ships.get(j).getY());
         }
+
+         */
     }
 
     public void setOpponentShipsList(ShipList shipList)
@@ -277,6 +280,11 @@ public class GameData implements Serializable {
         {
             arr.addAll(generateShipCoords(myShips.getDestroyer().get(i), 2));
         }
+        for(int j = 0; j< myShipsHit.size(); j++)
+        {
+            System.out.println(myShipsHit.get(j).getX() + " " + myShipsHit.get(j).getY());
+        }
+
 
         if(arr.size() == myShipsHit.size())
         {

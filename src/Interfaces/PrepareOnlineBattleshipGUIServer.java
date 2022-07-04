@@ -60,7 +60,6 @@ public class PrepareOnlineBattleshipGUIServer {
         {
             if(meinServer.value != "")
             {
-                System.out.println("test");
                 fieldsize = Integer.parseInt(meinServer.value.split(" ")[1]);
                 meinServer.value = "";
                 break;
@@ -71,7 +70,6 @@ public class PrepareOnlineBattleshipGUIServer {
         {
             if(meinServer.value != "")
             {
-                System.out.println("test");
                 ships = meinServer.value.split(" ");
                 for(int i = 1; i < ships.length; i++)
                 {

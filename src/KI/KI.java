@@ -120,7 +120,7 @@ public class KI {
 
             if(length == 5)
             {
-                shipList.addDestroyer(new Point(x, y));
+                shipList.addBattleship(new Point(x, y));
             }
 
             if(length == 4)

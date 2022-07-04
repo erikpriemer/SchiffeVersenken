@@ -1,6 +1,7 @@
 package Interfaces;
 import DataManagement.GameData;
 import DataManagement.Point;
+import DataManagement.ShipList;
 import KI.KI;
 
 import javax.imageio.ImageIO;
@@ -33,6 +34,9 @@ public class BattleshipGUI extends JFrame
         gameData.setGameType(gameType);
         gameData.setSize(size);
 
+        // Feldgröße wird mit der Variable size initialisiert
+        this.fieldSize = size;
+
         // KI starten
         if(gameData.getGameType() == 1)
         {
@@ -41,8 +45,6 @@ public class BattleshipGUI extends JFrame
             gameData.setOpponentShipsList(ki.getShipList());
         }
 
-        // Feldgröße wird mit der Variable size initialisiert
-        this.fieldSize = size;
 
         // Spielerfeld und gegnerisches Feld sind fieldSize x fieldSize groß
         myBoard = new JButton[fieldSize][fieldSize];
@@ -217,6 +219,40 @@ public class BattleshipGUI extends JFrame
         battleshipFrame.add(boardPanel, BorderLayout.CENTER);
         battleshipFrame.add(leftPanel, BorderLayout.WEST);
         battleshipFrame.add(rightPanel, BorderLayout.EAST);
+
+
+        if(gameData.getGameType() == 4 || gameData.getGameType() == 5)
+        {
+            this.ki = new KI(gameData.getSize());
+            gameData.setOpponentShips(ki.generateShips(quantityOfShips[0], quantityOfShips[1], quantityOfShips[2], quantityOfShips[3], quantityOfShips[4]));
+            gameData.setOpponentShipsList(ki.getShipList());
+            ShipList s = ki.getShipList();
+
+            for(int i = 0; i < s.getCarrier().size(); i++)
+            {
+                addCarrier(s.getCarrier().get(i).getX(), s.getCarrier().get(i).getY());
+            }
+
+            for(int i = 0; i < s.getBattleship().size(); i++)
+            {
+                addBattleship(s.getBattleship().get(i).getX(), s.getBattleship().get(i).getY());
+            }
+
+            for(int i = 0; i < s.getCruiser().size(); i++)
+            {
+                addCruiser(s.getCruiser().get(i).getX(), s.getCruiser().get(i).getY());
+            }
+
+            for(int i = 0; i < s.getSubmarine().size(); i++)
+            {
+                addSubmarine(s.getSubmarine().get(i).getX(), s.getSubmarine().get(i).getY());
+            }
+
+            for(int i = 0; i < s.getDestroyer().size(); i++)
+            {
+                addDestroyer(s.getDestroyer().get(i).getX(), s.getDestroyer().get(i).getY());
+            }
+        }
     }
 
     //Ab hier werden alle Buttons für die Schiffe erstellt-----------------------------------------------

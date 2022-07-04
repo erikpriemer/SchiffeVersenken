@@ -12,13 +12,12 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.util.concurrent.TimeUnit;
 
-// TODO alle Koordiniaten in Points umwandeln !!!!
 public class BattleshipGUI extends JFrame
 {
     // Spielerfeld und gegnerisches Feld bestehend aus JButtons
     JButton[][] myBoard;
     JButton[][] opponentBoard;
-    int fieldSize;  // TODO fieldsize in gameData packen + alle fieldSize aufrufe zu gameData.getSize umwandeln
+    int fieldSize;
     GameData gameData;
     Point myFieldClicked;
     Point opponentFieldClicked;
@@ -187,25 +186,6 @@ public class BattleshipGUI extends JFrame
             //Game (enthällt Online Game, Offline Game und Load Game)
             JMenu gameSetting = new JMenu("Game");
             {
-                //Online Game
-                JMenuItem menuItemOnlineGame = new JMenuItem("Online Game");
-                menuItemOnlineGame.addActionListener(
-                        e -> {System.out.println("Online Game");}
-                );
-                gameSetting.add(menuItemOnlineGame);
-                gameSetting.addSeparator();
-
-                //Offline Game
-                JMenuItem menuItemOfflineGame = new JMenuItem("Offline Game");
-                menuItemOfflineGame.addActionListener(
-                        e -> {System.out.println("Offline Game");}
-                );
-                gameSetting.add(menuItemOfflineGame);
-                gameSetting.addSeparator();
-                gameSetting.addSeparator();
-
-                // Save Game
-
                 //Load Game
                 JMenuItem menuItemLoadGame = new JMenuItem("Load Game");
                 menuItemLoadGame.addActionListener(
@@ -336,7 +316,7 @@ public class BattleshipGUI extends JFrame
     // Funktionen zum erstellen der Schiffe auf dem Spielerfeld--------------------------------------------
     private void addCarrier(int start, int row)
     {
-        if(!gameData.checkIfAllShipsOfOneSortArePlaced(0))
+        if(!gameData.checkIfAllShipsOfOneSortArePlaced(0) && start + 5 < fieldSize)
         {
             setImageIcon("Resources/ship6/row-1-column-1.png", myBoard[row][start], calcSize(), calcSize());
             setImageIcon("Resources/ship6/row-1-column-2.png", myBoard[row][start+1], calcSize(), calcSize());
@@ -349,6 +329,11 @@ public class BattleshipGUI extends JFrame
         }
         else
         {
+            if(start + 5 >= fieldSize)
+            {
+                JOptionPane.showMessageDialog(battleshipFrame, "You cant set your ship like this!");
+                return;
+            }
             if(gameData.checkIffAllShipsArePlaced())
             {
                 JOptionPane.showMessageDialog(battleshipFrame, "All Ships are set!");
@@ -363,7 +348,7 @@ public class BattleshipGUI extends JFrame
 
     private void addBattleship(int start, int row)
     {
-        if(!gameData.checkIfAllShipsOfOneSortArePlaced(1))
+        if(!gameData.checkIfAllShipsOfOneSortArePlaced(1) && start + 4 < fieldSize)
         {
             setImageIcon("Resources/ship5/row-1-column-1.png", myBoard[row][start], calcSize(), calcSize());
             setImageIcon("Resources/ship5/row-1-column-2.png", myBoard[row][start+1], calcSize(), calcSize());
@@ -375,6 +360,11 @@ public class BattleshipGUI extends JFrame
         }
         else
         {
+            if(start + 4 >= fieldSize)
+            {
+                JOptionPane.showMessageDialog(battleshipFrame, "You cant set your ship like this!");
+                return;
+            }
             if(gameData.checkIffAllShipsArePlaced())
             {
                 JOptionPane.showMessageDialog(battleshipFrame, "All Ships are set!");
@@ -389,7 +379,7 @@ public class BattleshipGUI extends JFrame
 
     private void addCruiser(int start, int row)
     {
-        if(!gameData.checkIfAllShipsOfOneSortArePlaced(2))
+        if(!gameData.checkIfAllShipsOfOneSortArePlaced(2) && start + 3 < fieldSize)
         {
             setImageIcon("Resources/ship4/row-1-column-1.png", myBoard[row][start], calcSize(), calcSize());
             setImageIcon("Resources/ship4/row-1-column-2.png", myBoard[row][start+1], calcSize(), calcSize());
@@ -400,10 +390,14 @@ public class BattleshipGUI extends JFrame
         }
         else
         {
+            if(start + 3 >= fieldSize)
+            {
+                JOptionPane.showMessageDialog(battleshipFrame, "You cant set your ship like this!");
+                return;
+            }
             if(gameData.checkIffAllShipsArePlaced())
             {
                 JOptionPane.showMessageDialog(battleshipFrame, "All Ships are set!");
-
             }
             else
             {
@@ -414,7 +408,7 @@ public class BattleshipGUI extends JFrame
 
     private void addSubmarine(int start, int row)
     {
-        if(!gameData.checkIfAllShipsOfOneSortArePlaced(3))
+        if(!gameData.checkIfAllShipsOfOneSortArePlaced(3) && start + 2 < fieldSize)
         {
             setImageIcon("Resources/ship3/row-1-column-1.png", myBoard[row][start], calcSize(), calcSize());
             setImageIcon("Resources/ship3/row-1-column-2.png", myBoard[row][start+1], calcSize(), calcSize());
@@ -424,6 +418,11 @@ public class BattleshipGUI extends JFrame
         }
         else
         {
+            if(start + 2 >= fieldSize)
+            {
+                JOptionPane.showMessageDialog(battleshipFrame, "You cant set your ship like this!");
+                return;
+            }
             if(gameData.checkIffAllShipsArePlaced())
             {
                 JOptionPane.showMessageDialog(battleshipFrame, "All Ships are set!");
@@ -438,7 +437,7 @@ public class BattleshipGUI extends JFrame
 
     private void addDestroyer(int start, int row)
     {
-        if(!gameData.checkIfAllShipsOfOneSortArePlaced(4))
+        if(!gameData.checkIfAllShipsOfOneSortArePlaced(4) && start + 1 < fieldSize)
         {
             setImageIcon("Resources/ship2/row-1-column-1.png", myBoard[row][start], calcSize(), calcSize());
             setImageIcon("Resources/ship2/row-1-column-2.png", myBoard[row][start+1], calcSize(), calcSize());
@@ -447,6 +446,11 @@ public class BattleshipGUI extends JFrame
         }
         else
         {
+            if(start + 1 >= fieldSize)
+            {
+                JOptionPane.showMessageDialog(battleshipFrame, "You cant set your ship like this!");
+                return;
+            }
             if(gameData.checkIffAllShipsArePlaced())
             {
                 JOptionPane.showMessageDialog(battleshipFrame, "All Ships are set!");
@@ -491,43 +495,48 @@ public class BattleshipGUI extends JFrame
         return 600/fieldSize;
     }
 
+
+    // Falls Schießen gedrückt wird
     public void shoot() throws InterruptedException {
+        // Falls alle Schiffe gesetzt wurden
         if(gameData.checkIffAllShipsArePlaced())
         {
 
+            // Falls ich getroffen habe
             if(gameData.checkIfHit(opponentFieldClicked))
             {
-                gameData.addOpponentShipHit(opponentFieldClicked);
+                gameData.addOpponentShipHit(opponentFieldClicked);  // Schiff zu hits hinzufügen
                 colorHitOpponentShip(opponentFieldClicked.getX(), opponentFieldClicked.getY());
-                if(gameData.checkIfWon())
+                if(gameData.checkIfWon())  // Schauen ob ich gewonnen habe
                 {
                     JOptionPane.showMessageDialog(battleshipFrame, "Congrats you won!");
                 }
             }
-            else
+            else  // Falls ich nicht getroffen habe
             {
                 gameData.addOpponentShipsMissed(opponentFieldClicked);
                 colorMissOpponentShip(opponentFieldClicked.getX(), opponentFieldClicked.getY());
             }
 
 
+            // Falls es ein Singleplayer vs KI game ist
             if(gameData.getGameType() == 1 && !gameData.checkIfHit(opponentFieldClicked))
             {
                 boolean hit = false;
                 while(true)
                 {
                     Point p = this.ki.shootHard(gameData.getMyShipsHit(), gameData.getMyShipsMissed(), hit);
-                    if(gameData.checkIfOpponentHit(p))
+                    if(gameData.checkIfOpponentHit(p))  // falls die KI getroffen hat
                     {
                         hit = true;
                         colorHitMyShip(p.getX(), p.getY());
                         gameData.addMyShipHit(p);
-                        if(gameData.checkIfLost())
+                        if(gameData.checkIfLost())  // überprüfe, ob KI gewonnen hat
                         {
                             JOptionPane.showMessageDialog(battleshipFrame, "You lost!");
                         }
                     }
-                    else
+                    else  // Falls sie nicht getroffen hat
                     {
                         hit = false;
                         //ki.helper.inProgress = false;
@@ -539,7 +548,7 @@ public class BattleshipGUI extends JFrame
                 }
             }
         }
-        else
+        else  // Falls nicht alle Schiffe gesetzt wurden
         {
             JOptionPane.showMessageDialog(battleshipFrame, "Not all ships are set yet!");
         }

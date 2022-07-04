@@ -20,6 +20,7 @@ public class ScoreHandler {
         f = new File("Database/score.ser");
     }
 
+    // Speichere daten ab
     public void serialization(GameData data) throws IOException { //TODO fix NotSerializableException problem
 
         fileOutputStream = new FileOutputStream(f, true);
@@ -28,6 +29,7 @@ public class ScoreHandler {
 
     }
 
+    // lade gespeicherte Daten
     public GameData deserialization() throws IOException, ClassNotFoundException {
 
         fileInputStream = new FileInputStream(f);

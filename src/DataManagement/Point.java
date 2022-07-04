@@ -1,6 +1,7 @@
 package DataManagement;
 
 public class Point {
+    // Klassischer Punkt eines Koordinatensystems, wird als Hilfe für ordentlichen Code verwendet
 
     private int x, y;
 

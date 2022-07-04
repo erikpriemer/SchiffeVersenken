@@ -32,6 +32,7 @@ public class GameData implements Serializable {
     }
 
 
+    // Alle arten von Schiff in myShips hinzufügen
     public void addMyCarrier(Point ship)
     {
         myShips.addCarrier(ship);
@@ -58,6 +59,7 @@ public class GameData implements Serializable {
     }
 
 
+    // Die gegnerischen Schiffe setzen
     public void addOpponentShip(Point ship)
     {
         opponentShips.add(ship);
@@ -66,21 +68,12 @@ public class GameData implements Serializable {
     public void setOpponentShips(ArrayList<Point> ships)
     {
         opponentShips = ships;
-
-        /*
-        for(int j = 0; j< ships.size(); j++)
-        {
-            System.out.println(ships.get(j).getX() + " " + ships.get(j).getY());
-        }
-
-         */
     }
 
     public void setOpponentShipsList(ShipList shipList)
     {
         opponentShipsList = shipList;
     }
-
 
 
     public void addMyShipHit(Point ship)
@@ -160,6 +153,7 @@ public class GameData implements Serializable {
         return this.shipsPlaced[ship] == this.shipsNeeded[ship];
     }
 
+    // Überprüfen, ob alle Schiffe gesetzt wurden
     public boolean checkIffAllShipsArePlaced()
     {
         return this.shipsPlaced[0] == this.shipsNeeded[0] &&
@@ -169,6 +163,7 @@ public class GameData implements Serializable {
                 this.shipsPlaced[4] == this.shipsNeeded[4];
     }
 
+    // Schauen, ob ich ein Schiff getroffen habe
     public boolean checkIfHit(Point p)
     {
         for(int i = 0; i < opponentShips.size(); i++)
@@ -182,6 +177,7 @@ public class GameData implements Serializable {
         return false;
     }
 
+    // Schauen, ob der Gegner (die KI) getroffen hat
     public boolean checkIfOpponentHit(Point p)
     {
         ArrayList<Point> arr= new ArrayList<>();
@@ -211,15 +207,6 @@ public class GameData implements Serializable {
             arr.addAll(generateShipCoords(myShips.getDestroyer().get(i), 2));
         }
 
-/*
-        System.out.println("---------------------");
-        for(int j = 0; j< arr.size(); j++)
-        {
-            System.out.println(arr.get(j).getX() + " " + arr.get(j).getY());
-        }
-
- */
-
         for(int i = 0; i < arr.size(); i++)
         {
             if(arr.get(i).getX() == p.getX() && arr.get(i).getY() == p.getY())
@@ -232,6 +219,7 @@ public class GameData implements Serializable {
 
     }
 
+    // Wird für das generieren von Schiffen benötigt, da in ShipList immer nur die Startkoordinate gespeichert wird
     public ArrayList<Point> generateShipCoords(Point p, int length)
     {
         ArrayList<Point> arr = new ArrayList<>();
@@ -243,6 +231,7 @@ public class GameData implements Serializable {
         return arr;
     }
 
+    // Schaut ob ich gewonnen hab
     public boolean checkIfWon()
     {
         if(opponentShipsHit.size() == opponentShips.size())
@@ -252,6 +241,7 @@ public class GameData implements Serializable {
         return false;
     }
 
+    // Schaut ob ich verloren hab
     public boolean checkIfLost()
     {
         ArrayList<Point> arr= new ArrayList<>();

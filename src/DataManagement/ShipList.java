@@ -6,6 +6,7 @@ import java.util.List;
 
 public class ShipList {
 
+    // Alle arten von Schiffen in einer List<Point>
     private List<Point> carrier;
     private List<Point> battleship;
     private List<Point> cruiser;
